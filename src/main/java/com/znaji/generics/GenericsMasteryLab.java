@@ -39,6 +39,27 @@ public class GenericsMasteryLab {
         // - Start with Section 1
         // - Only move on when your tests convince you the section is clear
         // - Keep adding examples here
+
+        // TODO S1-1:
+        //todoS1_1();
+
+        // TODO S1-2:
+
+    }
+
+    private static void todoS1_1() {
+        LegacyBox legacyBox1 = new LegacyBox();
+        legacyBox1.set("Hello, Generics!");
+        String value1 = (String) legacyBox1.get();
+        System.out.println("LegacyBox with String: " + value1);
+        LegacyBox legacyBox2 = new LegacyBox();
+        legacyBox2.set(42);
+        try {
+            String value2 = (String) legacyBox2.get(); // This will cause ClassCastException
+            System.out.println("LegacyBox with Integer: " + value2);
+        } catch (ClassCastException e) {
+            System.out.println("Caught ClassCastException as expected: " + e.getMessage());
+        }
     }
 
     // =========================================================
