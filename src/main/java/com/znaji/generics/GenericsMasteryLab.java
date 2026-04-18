@@ -50,7 +50,25 @@ public class GenericsMasteryLab {
         // If we accidentally put an Integer in another LegacyBox and try to cast it to String, we get a ClassCastException at runtime.
 
         // TODO S1-3:
+        //todoS1_3();
 
+
+    }
+
+    private static void todoS1_3() {
+        Box<String> stringBox = new Box<>();
+        stringBox.set("Hello, Generics!");
+        String stringValue = stringBox.get();
+        System.out.println("Box with String: " + stringValue);
+        Box<Integer> intBox = new Box<>();
+        intBox.set(42);
+        Integer intValue = intBox.get();
+        System.out.println("Box with Integer: " + intValue);
+        // The following lines do NOT compile because of type safety:
+        //Box rawBox = stringBox; // This would allow unsafe operations
+        //rawBox.set(123); // This would put an Integer in a Box<String>
+        //Box<Object> objectBox = stringBox; // This is not allowed because Box<String> is not a subtype of Box<Object>
+        //objectBox.set(123); // This would put an Integer in a Box<String>
     }
 
     private static void todoS1_1() {
