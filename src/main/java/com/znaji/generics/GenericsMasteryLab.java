@@ -44,6 +44,12 @@ public class GenericsMasteryLab {
         //todoS1_1();
 
         // TODO S1-2:
+        // LegacyBox demonstrates the pain of losing type information.
+        // When we put a String in LegacyBox, it only knows it's an Object.
+        // This forces us to cast it back to String when we get it out.
+        // If we accidentally put an Integer in another LegacyBox and try to cast it to String, we get a ClassCastException at runtime.
+
+        // TODO S1-3:
 
     }
 
