@@ -76,6 +76,34 @@ public class GenericsMasteryLab {
         // TODO S4-2:
         //todoS4_2();
 
+        // TODO S4-3:
+        //todoS4_3();
+
+    }
+
+    private static void todoS4_3() {
+        List<String> stringList = new ArrayList<>(List.of("A", "B", "C"));
+        System.out.println("Before swap: " + stringList);
+        swap(stringList, 0, 2);
+        System.out.println("After swap: " + stringList);
+
+        List<Integer> intList = new ArrayList<>(List.of(1, 2, 3, 4));
+        System.out.println("Before swap: " + intList);
+        swap(intList, 1, 3);
+        System.out.println("After swap: " + intList);
+    }
+
+    // TODO S4-3:
+    private static <T> void swap(List<T> list, int i, int j) {
+        if (i < 0 || i >= list.size() || j < 0 || j >= list.size()) {
+            throw new IndexOutOfBoundsException("Invalid indices");
+        }
+        if (i == j) {
+            return; // No need to swap if indices are the same
+        }
+        T temp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, temp);
     }
 
     private static void todoS4_2() {
