@@ -70,6 +70,23 @@ public class GenericsMasteryLab {
         // TODO S3-3:
         //todoS3_3();
 
+        //TODO S4-1:
+        //todoS4_1();
+    }
+
+    private static void todoS4_1() {
+        String s = first("Hello", "World");
+        Integer i = first(10, 20);
+        // The following line does NOT compile because the types are incompatible:
+        var x =  first("Hello", 10); // works i guess infered type is Object or a common interface btw Integer and String like Constable or Serializable
+        System.out.println(x);
+
+        String s1 = (String) first("Hello", 10); // need to explicitly cast to String
+    }
+
+    //TODO S4-1:
+    private static <T> T first(T a, T b) {
+        return a;
     }
 
     private static void todoS3_3() {
