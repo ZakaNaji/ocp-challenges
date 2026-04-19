@@ -55,8 +55,21 @@ public class GenericsMasteryLab {
         // TODO S2-2:
         //todoS2_2();
 
+        //Todo S2-3:
+        //todoS2_3();
 
 
+    }
+
+    private static void todoS2_3() {
+        Triple<String, Integer, Dog> triple1 = new Triple<>("Hello", 42, new Dog("Rex"));
+        System.out.println(triple1);
+        Triple<List<String>, Set<Integer>, Map<String, Dog>> triple2 = new Triple<>(
+                List.of("A", "B"),
+                Set.of(1, 2, 3),
+                Map.of("Rex", new Dog("Rex"), "Max", new Dog("Max"))
+        );
+        System.out.println(triple2);
     }
 
     private static void todoS2_2() {
