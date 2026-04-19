@@ -63,6 +63,25 @@ public class GenericsMasteryLab {
 
         // TODO S3-1:
         //todoS3_1();
+
+        // TODO S3-2:
+        //todoS3_2();
+
+        // TODO S3-3:
+        // Crate<Dog> is not Crate<Animal> because of invariance.
+        Crate<Dog> dogCrate = new Crate<>();
+        Crate<Animal> animalCrate = new Crate<>();
+        // The following line does NOT compile because of invariance:
+        // animalCrate = dogCrate; // This would allow putting any Animal into a Crate<Dog>, which would break type safety when we try to read from it as a Dog
+
+    }
+
+    private static void todoS3_2() {
+        Box<String> stringBox = new Box<>();
+        Box<Object> objectBox = new Box<>();
+        // The following lines do NOT compile because of invariance:
+        // Box<Object> objBox = stringBox; // This would allow putting any Object into a Box<String>
+        // stringBox = objectBox; // stringBox.get() would return Object, not String, which would break type safety
     }
 
     private static void todoS3_1() {
@@ -458,6 +477,18 @@ public class GenericsMasteryLab {
     // Then demonstrate that:
     // Crate<Dog> is not Crate<Animal>
     // even though Dog extends Animal.
+
+    static class Crate<T> {
+        private T item;
+
+        public void put(T item) {
+            this.item = item;
+        }
+
+        public T get() {
+            return item;
+        }
+    }
 
     // TODO S3-4:
     // Write a helper method in comments only:
