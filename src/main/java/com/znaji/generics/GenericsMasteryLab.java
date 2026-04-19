@@ -60,6 +60,19 @@ public class GenericsMasteryLab {
 
         // TODO S2-4:
         //todoS2_4();
+
+        // TODO S3-1:
+        //todoS3_1();
+    }
+
+    private static void todoS3_1() {
+        List<Dog> dogs = new ArrayList<>();
+        dogs.add(new Dog("Rex"));
+        // The following line does NOT compile because List<Dog> is not a subtype of List<Animal> due to invariance:
+        // List<Animal> animals = dogs;
+        // If Java allowed this, we could add a Cat to the animals list, which would corrupt the dog list and cause a ClassCastException when we try to read from it.
+        // For example:
+        // animals.add(new Cat("Whiskers")); // This would add a Cat to the dogs list
     }
 
     private static void todoS2_4() {
