@@ -79,7 +79,30 @@ public class GenericsMasteryLab {
         // TODO S4-3:
         //todoS4_3();
 
+        // TODO S4-4:
+        //todoS4_4();
     }
+
+    // TODO S4-4:
+    private static <T> List<T> repeat(T value, int count) {
+        if (count < 0) {
+            throw new IllegalArgumentException("Count cannot be negative");
+        }
+        List<T> result = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            result.add(value);
+        }
+        return result;
+    }
+
+    private static void todoS4_4() {
+        List<String> repeated = repeat("A", 5);
+        System.out.println("Repeated strings: " + repeated);
+
+        List<Integer> repeatedInts = repeat(42, 3);
+        System.out.println("Repeated integers: " + repeatedInts);
+    }
+
 
     private static void todoS4_3() {
         List<String> stringList = new ArrayList<>(List.of("A", "B", "C"));
