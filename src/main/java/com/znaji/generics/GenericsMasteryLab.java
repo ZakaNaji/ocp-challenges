@@ -6,16 +6,16 @@ import java.util.function.Predicate;
 
 /**
  * GenericsMasteryLab
- *
+ * <p>
  * Rules for this lab:
  * 1. Do NOT jump directly to Google or docs.
  * 2. For each TODO:
- *    - first predict what should compile and what should not
- *    - then implement
- *    - then test in main()
+ * - first predict what should compile and what should not
+ * - then implement
+ * - then test in main()
  * 3. When a TODO asks for an explanation, write it as a comment above your code.
  * 4. Do not skip the "why" questions.
- *
+ * <p>
  * Goal:
  * By the end of this file, you should deeply understand:
  * - why generics exist
@@ -81,6 +81,34 @@ public class GenericsMasteryLab {
 
         // TODO S4-4:
         //todoS4_4();
+
+        // TODO S4-5:
+        //todoS4_5();
+    }
+
+    // TODO S4-5:
+    public static <T, R> List<R> map(List<T> source, Function<T, R> mapper) {
+        //assert source != null : "Source list cannot be null";
+        if (source == null) {
+            throw new IllegalArgumentException("Source list cannot be null");
+        }
+        return source.stream()
+                .map(mapper)
+                .toList();
+    }
+
+    private static void todoS4_5() {
+        List<String> strings = List.of("Hello", "World", "Generics");
+        List<Integer> lengths = map(strings, String::length);
+        System.out.println("Lengths: " + lengths);
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"));
+        List<String> dogNames = map(dogs, Dog::name);
+        System.out.println("Dog names: " + dogNames);
+
+        List<Integer> numbers = List.of(1, 2, 3);
+        List<String> numberLabels = map(numbers, n -> "Number " + n);
+        System.out.println("Number labels: " + numberLabels);
     }
 
     // TODO S4-4:
@@ -147,7 +175,7 @@ public class GenericsMasteryLab {
         String s = first("Hello", "World");
         Integer i = first(10, 20);
         // The following line does NOT compile because the types are incompatible:
-        var x =  first("Hello", 10); // works i guess infered type is Object or a common interface btw Integer and String like Constable or Serializable
+        var x = first("Hello", 10); // works i guess infered type is Object or a common interface btw Integer and String like Constable or Serializable
         System.out.println(x);
 
         String s1 = (String) first("Hello", 10); // need to explicitly cast to String
@@ -200,7 +228,7 @@ public class GenericsMasteryLab {
         dogStack.push(new Dog("Max"));
         System.out.println("Dog Stack peek: " + dogStack.peek());
         System.out.println("Dog Stack pop: " + dogStack.pop());
-        System.out.println("Stack after pop:" + dogStack );
+        System.out.println("Stack after pop:" + dogStack);
     }
 
     private static void todoS2_3() {
