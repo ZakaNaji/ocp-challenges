@@ -72,6 +72,24 @@ public class GenericsMasteryLab {
 
         //TODO S4-1:
         //todoS4_1();
+
+        // TODO S4-2:
+        //todoS4_2();
+
+    }
+
+    private static void todoS4_2() {
+        List<String> stringList = List.of("A", "B", "C");
+        String lastString = last(stringList);
+        System.out.println("Last string: " + lastString);
+    }
+
+    // TODO S4-2:
+    private static <T> T last(List<T> list) {
+        if (list.isEmpty()) {
+            throw new NoSuchElementException("List is empty");
+        }
+        return list.get(list.size() - 1);
     }
 
     private static void todoS4_1() {
