@@ -58,7 +58,27 @@ public class GenericsMasteryLab {
         //Todo S2-3:
         //todoS2_3();
 
+        // TODO S2-4:
+        //todoS2_4();
+    }
 
+    private static void todoS2_4() {
+        StackX<String> stringStack = new StackX<>();
+        stringStack.push("Hello");
+        stringStack.push("World");
+        System.out.println("String Stack peek: " + stringStack.peek());
+        System.out.println("String Stack pop: " + stringStack.pop());
+        StackX<Integer> intStack = new StackX<>();
+        intStack.push(1);
+        intStack.push(2);
+        System.out.println("Integer Stack peek: " + intStack.peek());
+        System.out.println("Integer Stack pop: " + intStack.pop());
+        StackX<Dog> dogStack = new StackX<>();
+        dogStack.push(new Dog("Rex"));
+        dogStack.push(new Dog("Max"));
+        System.out.println("Dog Stack peek: " + dogStack.peek());
+        System.out.println("Dog Stack pop: " + dogStack.pop());
+        System.out.println("Stack after pop:" + dogStack );
     }
 
     private static void todoS2_3() {
@@ -355,6 +375,38 @@ public class GenericsMasteryLab {
     // - String
     // - Integer
     // - Dog
+
+    static class StackX<T> {
+        private final List<T> elements = new ArrayList<>();
+
+        public void push(T element) {
+            elements.add(element);
+        }
+
+        public T pop() {
+            if (elements.isEmpty()) {
+                throw new NoSuchElementException("Stack is empty");
+            }
+            return elements.removeFirst();
+        }
+
+        public T peek() {
+            if (elements.isEmpty()) {
+                throw new NoSuchElementException("Stack is empty");
+            }
+            return elements.getFirst();
+        }
+
+        public boolean isEmpty() {
+            return elements.isEmpty();
+        }
+
+        @Override
+        // For debugging purposes, let's add a comprehensive toString() method
+        public String toString() {
+            return "StackX" + elements;
+        }
+    }
 
     // TODO S2-5:
     // Write a comment:
