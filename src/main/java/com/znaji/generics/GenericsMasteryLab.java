@@ -412,6 +412,8 @@ public class GenericsMasteryLab {
     // Write a comment:
     // Why is one StackX<T> class better than creating
     // StringStack, IntegerStack, DogStack, etc.?
+    // Answer:
+    // A single StackX<T> class is better because it promotes code reuse and reduces duplication. Instead of writing separate classes for each type, we can use the same generic class with different type parameters. This leads to cleaner, more maintainable code and allows us to easily create stacks for any type without needing to write new classes.
 
     // =========================================================
     // SECTION 3 — INVARIANCE
