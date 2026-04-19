@@ -52,7 +52,20 @@ public class GenericsMasteryLab {
         // TODO S1-3:
         //todoS1_3();
 
+        // TODO S2-2:
+        //todoS2_2();
 
+
+
+    }
+
+    private static void todoS2_2() {
+        Holder<String> stringHolder = new Holder<>("Hello");
+        System.out.println(stringHolder);
+        Holder<Dog> dogHolder = new Holder<>(new Dog("Rex"));
+        System.out.println(dogHolder);
+        Holder<List<Integer>> listHolder = new Holder<>(List.of(1, 2, 3));
+        System.out.println(listHolder);
     }
 
     private static void todoS1_3() {
@@ -288,6 +301,34 @@ public class GenericsMasteryLab {
     // Create a generic class Triple<A, B, C>.
     // Add fields, constructor, getters, toString().
     // Test it with at least 3 different combinations of types.
+    static class Triple<A, B, C> {
+        private final A first;
+        private final B second;
+        private final C third;
+
+        Triple(A first, B second, C third) {
+            this.first = first;
+            this.second = second;
+            this.third = third;
+        }
+
+        public A getFirst() {
+            return first;
+        }
+
+        public B getSecond() {
+            return second;
+        }
+
+        public C getThird() {
+            return third;
+        }
+
+        @Override
+        public String toString() {
+            return "Triple[" + first + ", " + second + ", " + third + "]";
+        }
+    }
 
     // TODO S2-4:
     // Create a generic class StackX<T> backed by ArrayList<T>.
