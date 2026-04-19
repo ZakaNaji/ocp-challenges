@@ -257,6 +257,26 @@ public class GenericsMasteryLab {
     // - getter
     // - setter
     // - nice toString()
+    static class Holder<T> {
+        private T value;
+
+        public Holder(T value) {
+            this.value = value;
+        }
+
+        public T get() {
+            return value;
+        }
+
+        public void set(T value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "Holder[" + value + "]";
+        }
+    }
 
     // TODO S2-2:
     // Create examples in main() using:
