@@ -68,12 +68,16 @@ public class GenericsMasteryLab {
         //todoS3_2();
 
         // TODO S3-3:
+        //todoS3_3();
+
+    }
+
+    private static void todoS3_3() {
         // Crate<Dog> is not Crate<Animal> because of invariance.
         Crate<Dog> dogCrate = new Crate<>();
         Crate<Animal> animalCrate = new Crate<>();
         // The following line does NOT compile because of invariance:
         // animalCrate = dogCrate; // This would allow putting any Animal into a Crate<Dog>, which would break type safety when we try to read from it as a Dog
-
     }
 
     private static void todoS3_2() {
@@ -494,6 +498,15 @@ public class GenericsMasteryLab {
     // Write a helper method in comments only:
     // "What if Java had allowed List<Dog> -> List<Animal>?"
     // Write 4–6 lines of pseudocode showing the disaster.
+
+    /**
+     * If Java allowed List<Dog> to be assigned to List<Animal>, we could do the following:
+     * List<Dog> dogs = new ArrayList<>();
+     * List<Animal> animals = dogs; // This would be allowed
+     * animals.add(new Cat()); // Now the dogs list contains a Cat, which is incorrect
+     * Dog dog = dogs.get(0); // This would throw a ClassCastException at runtime because the first element is actually a Cat, not a Dog
+     *
+     */
 
     // =========================================================
     // SECTION 4 — GENERIC METHODS
