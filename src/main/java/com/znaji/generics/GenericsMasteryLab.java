@@ -675,6 +675,9 @@ public class GenericsMasteryLab {
     // - generic class
     // - generic method
 
+    // Answer:
+    // A generic class is a class that has one or more type parameters, allowing it to operate on different types while maintaining type safety. For example, Box<T> is a generic class where T can be any type. A generic method, on the other hand, is a method that has its own type parameters, which can be used independently of the class's type parameters. This allows the method to be flexible and work with different types even if the class itself is not generic. For example, static <T> T first(T a, T b) is a generic method that can be used in any class, regardless
+
     // =========================================================
     // SECTION 5 — BOUNDED TYPE PARAMETERS
     // =========================================================
