@@ -88,7 +88,25 @@ public class GenericsMasteryLab {
         // TODO S5-1:
         //todoS5_1();
 
+        // TODO S5-2:
+        //todoS5_2();
+
     }
+
+    // TODO S5-2:
+    public static <T extends Number> double asDouble(T value) {
+        return value.doubleValue() * 2;
+    }
+
+    private static void todoS5_2() {
+        var result = asDouble(10); // Inferred type T is Integer, which extends Number
+        System.out.println("Result: " + result);
+
+        // The following line does NOT compile because String does not extend Number:
+        //var badResult = asDouble("Hello"); // This would fail because String does not extend Number
+    }
+
+
 
     private static void todoS5_1() {
         NumericBox<Integer> intBox = new NumericBox<>(42);
