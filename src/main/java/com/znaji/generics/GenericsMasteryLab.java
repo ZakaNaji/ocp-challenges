@@ -96,7 +96,26 @@ public class GenericsMasteryLab {
         // TODO S5-4:
         //todoS5_4();
 
+        // TODO S6-1:
+        //todoS6_1();
 
+    }
+
+    //Todo S6-1:
+    public static void printUnknownList(List<?> list) {
+        list.forEach(System.out::println);
+    }
+
+    private static void todoS6_1() {
+        List<String> stringList = List.of("Hello", "World");
+        List<Integer> intList = List.of(1, 2, 3);
+        List<Dog> dogList = List.of(new Dog("Rex"), new Dog("Max"));
+        System.out.println("Printing String list:");
+        printUnknownList(stringList);
+        System.out.println("Printing Integer list:");
+        printUnknownList(intList);
+        System.out.println("Printing Dog list:");
+        printUnknownList(dogList);
     }
 
     //Todo S5-4:
