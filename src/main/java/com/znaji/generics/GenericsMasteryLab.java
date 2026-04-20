@@ -108,6 +108,15 @@ public class GenericsMasteryLab {
     // Todo S7-1:
     static void printAnimals(List<? extends Animal> animals) {
         animals.forEach(System.out::println);
+
+        //Todo S7-2:
+        // We can read as Animal:
+        //Animal firstAnimal = animals.get(0); // This is fine, we know it's at least an Animal
+        // We can also read as Object:
+        //Object firstObject = animals.get(0); // This is also fine, since all Animals are Objects
+
+        // However, we cannot add a Dog or Cat because we don't know the exact type of the list:
+        // animals.add(new Dog("Rex")); // Not allowed, we don't know if it's a List<Dog>, List<Cat>, or List<Animal>
     }
 
     private static void todoS7_1() {
