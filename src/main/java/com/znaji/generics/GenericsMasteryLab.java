@@ -91,7 +91,27 @@ public class GenericsMasteryLab {
         // TODO S5-2:
         //todoS5_2();
 
+        // TODO S5-3:
+        //todoS5_3();
     }
+
+    // TODO S5-3:
+    public static <T extends Number> double sumNumbers(List<T> numbers) {
+        return numbers.stream().
+                mapToDouble(Number::doubleValue)
+                .sum();
+    }
+
+    private static void todoS5_3() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+        double sum = sumNumbers(numbers);
+        System.out.println("Sum of numbers: " + sum);
+
+        List<Double> doubleNumbers = List.of(1.5, 2.5, 3.5);
+        double doubleSum = sumNumbers(doubleNumbers);
+        System.out.println("Sum of double numbers: " + doubleSum);
+    }
+
 
     // TODO S5-2:
     public static <T extends Number> double asDouble(T value) {
@@ -105,7 +125,6 @@ public class GenericsMasteryLab {
         // The following line does NOT compile because String does not extend Number:
         //var badResult = asDouble("Hello"); // This would fail because String does not extend Number
     }
-
 
 
     private static void todoS5_1() {
