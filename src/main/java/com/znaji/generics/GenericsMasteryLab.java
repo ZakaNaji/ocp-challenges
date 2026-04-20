@@ -84,6 +84,23 @@ public class GenericsMasteryLab {
 
         // TODO S4-5:
         //todoS4_5();
+
+        // TODO S5-1:
+        //todoS5_1();
+
+    }
+
+    private static void todoS5_1() {
+        NumericBox<Integer> intBox = new NumericBox<>(42);
+        System.out.println("Integer in NumericBox: " + intBox.get());
+        System.out.println("Integer as double: " + intBox.asDouble());
+
+        NumericBox<Double> doubleBox = new NumericBox<>(3.14);
+        System.out.println("Double in NumericBox: " + doubleBox.get());
+        System.out.println("Double as double: " + doubleBox.asDouble());
+
+        // The following line does NOT compile because String is not a subtype of Number:
+        //NumericBox<String> stringBox = new NumericBox<>("Hello"); // This would fail because String does not extend Number
     }
 
     // TODO S4-5:
@@ -695,6 +712,22 @@ public class GenericsMasteryLab {
     // - Double
     //
     // Add commented-out code with String and explain why it fails.
+
+    static class NumericBox<T extends Number> {
+        private final T value;
+
+        public NumericBox(T value) {
+            this.value = value;
+        }
+
+        public T get() {
+            return value;
+        }
+
+        public double asDouble() {
+            return value.doubleValue();
+        }
+    }
 
     // TODO S5-2:
     // Implement:
