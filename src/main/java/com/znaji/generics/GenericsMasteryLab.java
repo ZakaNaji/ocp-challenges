@@ -103,6 +103,15 @@ public class GenericsMasteryLab {
 
     //Todo S6-1:
     public static void printUnknownList(List<?> list) {
+        // Todo S6-2:
+        // We cannot add any specific type to List<?> because we don't know what type it holds. It could be a List<String>, List<Integer>, or any other type. Adding an element would violate type safety since the list might not accept that type.
+        // list.add("hello"); // Not allowed
+        // list.add(123); // Not allowed
+
+        //Todo S6-3:
+        // We can safely read elements from List<?> as Object because all types in Java inherit from Object. However, we cannot assume any more specific type than Object since we don't know the actual type of the list's elements.
+        Object element = list.get(0); // This is fine, but we only know it's an Object
+        String strElement = (String) element; // This would require a cast and could fail at runtime if the actual type is not String
         list.forEach(System.out::println);
     }
 
