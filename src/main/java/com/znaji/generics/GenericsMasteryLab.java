@@ -2,7 +2,6 @@ package com.znaji.generics;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * GenericsMasteryLab
@@ -93,7 +92,32 @@ public class GenericsMasteryLab {
 
         // TODO S5-3:
         //todoS5_3();
+
+        // TODO S5-4:
+        //todoS5_4();
+
+
     }
+
+    //Todo S5-4:
+    public static <T extends Comparable<T>> T maxOfTwo(T a, T b) {
+        return a.compareTo(b) >= 0 ? a : b;
+    }
+
+    private static void todoS5_4() {
+        var maxInt = maxOfTwo(10, 20);
+        System.out.println("Max of 10 and 20: " + maxInt);
+
+        var maxString = maxOfTwo("apple", "banana");
+        System.out.println("Max of 'apple' and 'banana': " + maxString);
+
+        NumericBox<Integer> intBox1 = new NumericBox<>(10);
+
+        NumericBox<Integer> intBox2 = new NumericBox<>(20);
+        var maxBox = maxOfTwo(intBox1, intBox2);
+        System.out.println("Max of " + intBox1 + " and " + intBox2 + " is: " + maxBox);
+    }
+
 
     // TODO S5-3:
     public static <T extends Number> double sumNumbers(List<T> numbers) {
@@ -750,7 +774,12 @@ public class GenericsMasteryLab {
     //
     // Add commented-out code with String and explain why it fails.
 
-    static class NumericBox<T extends Number> {
+    static class NumericBox<T extends Number & Comparable<T>> implements Comparable<NumericBox<T>> {
+        @Override
+        public int compareTo(NumericBox<T> o) {
+            return this.value.compareTo(o.value);
+        }
+
         private final T value;
 
         public NumericBox(T value) {
@@ -763,6 +792,13 @@ public class GenericsMasteryLab {
 
         public double asDouble() {
             return value.doubleValue();
+        }
+
+        @Override
+        public String toString() {
+            return "NumericBox{" +
+                    "value=" + value +
+                    '}';
         }
     }
 
