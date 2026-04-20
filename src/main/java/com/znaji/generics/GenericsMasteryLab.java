@@ -99,7 +99,31 @@ public class GenericsMasteryLab {
         // TODO S6-1:
         //todoS6_1();
 
+        // TODO S7-1:
+        //todoS7_1();
+
+
     }
+
+    // Todo S7-1:
+    static void printAnimals(List<? extends Animal> animals) {
+        animals.forEach(System.out::println);
+    }
+
+    private static void todoS7_1() {
+        List<Animal> animals = List.of(new Dog("Rex"), new Cat("Whiskers"));
+        printAnimals(animals);
+        List<Dog> dogs = List.of(new Dog("Max"), new Dog("Buddy"));
+        printAnimals(dogs);
+        List<Cat> cats = List.of(new Cat("Mittens"), new Cat("Shadow"));
+        printAnimals(cats);
+
+        List<Vehicle> vehicles = List.of(new Vehicle("Car"), new Vehicle("Bike"));
+        // The following line does NOT compile because List<Vehicle> is not a subtype of List<? extends Animal>:
+        //printAnimals(vehicles);
+    }
+
+
 
     //Todo S6-1:
     public static void printUnknownList(List<?> list) {
