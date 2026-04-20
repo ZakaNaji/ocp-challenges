@@ -105,6 +105,20 @@ public class GenericsMasteryLab {
 
     }
 
+    // TODO S7-4:
+    static Animal firstAnimal(List<? extends Animal> animals) {
+        return animals.get(0); // This is fine, we know it's at least an Animal
+    }
+
+    // TODO S7-3:
+
+    static double sum(List<? extends Number> numbers) {
+        // we can read as Number
+        return numbers.stream()
+                .mapToDouble(Number::doubleValue)
+                .sum();
+    }
+
     // Todo S7-1:
     static void printAnimals(List<? extends Animal> animals) {
         animals.forEach(System.out::println);
@@ -970,6 +984,9 @@ public class GenericsMasteryLab {
     // TODO S7-5:
     // Write a short comment:
     // Why is ? extends usually described as “producer”?
+
+    // Answer:
+    // ? extends is often described as a "producer" because it allows you to read (produce) items of a certain type from a collection, but you cannot add (consume) items to the collection since you don't know the exact subtype. It is designed for situations where you want to work with a collection that produces items of a certain type, but you don't care about the specific subtype, allowing for greater flexibility in the types of collections you can use.
 
     // =========================================================
     // SECTION 8 — ? SUPER
