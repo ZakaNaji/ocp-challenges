@@ -838,6 +838,10 @@ public class GenericsMasteryLab {
     // - <T extends Number>
     // - ? extends Number
 
+    // Answer:
+    // <T extends Number> is a bounded type parameter used in generic class or method definitions. It means that T can be any type that is a subclass of Number, and it allows us to use T as a specific type within the class or method. For example, we can create a class NumericBox<T extends Number> that can hold any type of Number, and we can call methods specific to Number on T.
+    // ? extends Number is a wildcard used in generic type declarations. It means that the type can be any subclass of Number, but we don't know exactly which one. This is useful for reading from a collection of unknown specific type, but we cannot add elements to it because we don't know the exact type.
+
     // =========================================================
     // SECTION 6 — UNBOUNDED WILDCARDS
     // =========================================================
