@@ -1279,6 +1279,11 @@ public class GenericsMasteryLab {
     //
     // This is reading practice, not coding difficulty.
 
+    // Answers:
+    // Map<String, List<Integer>>: A map where each key is a String and the value is a List of Integers. For example, it could represent categories (String) and their associated scores (List<Integer>).
+    // List<Map<String, Integer>>: A list where each element is a Map that maps Strings to Integers. For example, it could represent a list of score sheets, where each score sheet is a map of category (String) to score (Integer).
+    // Map<String, Map<String, List<Double>>>: A map where each key is a String and the value is another Map. The inner Map has String keys and List<Double> values. For example, it could represent a map of students (String) to their subjects (String) and the grades they received in those subjects (List<Double>).
+
     // =========================================================
     // SECTION 11 — GENERIC API DESIGN
     // =========================================================
