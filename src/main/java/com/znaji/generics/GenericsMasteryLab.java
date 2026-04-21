@@ -113,6 +113,24 @@ public class GenericsMasteryLab {
 
         // Todo S10-1:
         //todoS10_1();
+
+        // Todo S10-2:
+        //todoS10_2();
+    }
+
+    private static void todoS10_2() {
+        List<Map<String, Integer>>  scoresList = List.of(
+                Map.of("Math", 90, "Science", 88, "Literature", 95),
+                Map.of("Math", 85, "Science", 91, "Literature", 89),
+                Map.of("Math", 92, "Science", 79, "Literature", 94)
+        );
+
+        scoresList.forEach(map -> {
+            int mathScore = map.get("Math");
+            int scienceScore = map.get("Science");
+            int literatureScore = map.get("Literature");
+            System.out.println("Math: " + mathScore + ", Science: " + scienceScore + ", Literature: " + literatureScore);
+        });
     }
 
     private static void todoS10_1() {
