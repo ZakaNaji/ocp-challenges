@@ -119,7 +119,29 @@ public class GenericsMasteryLab {
 
         // Todo S10-3:
         //todoS10_3();
+
+        //Todo S10-4:
+        //todoS10_4();
     }
+
+    // Todo S10-4:
+    static List<String> flattenKeys(List<Map<String, Integer>> maps) {
+        return maps.stream()
+                .flatMap(map -> map.keySet().stream())
+                .toList();
+    }
+
+    private static void todoS10_4() {
+        List<Map<String, Integer>> maps = List.of(
+                Map.of("A", 1, "B", 2),
+                Map.of("C", 3, "D", 4),
+                Map.of("E", 5)
+        );
+
+        List<String> keys = flattenKeys(maps);
+        System.out.println("Flattened keys: " + keys);
+    }
+
 
     //Todo S10-3:
     static int totalNested(Map<String, List<Integer>> data) {
@@ -139,7 +161,7 @@ public class GenericsMasteryLab {
         System.out.println("Total sum of nested integers: " + total);
     }
 
-    
+
 
     private static void todoS10_2() {
         List<Map<String, Integer>>  scoresList = List.of(
