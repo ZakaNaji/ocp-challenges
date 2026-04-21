@@ -112,6 +112,12 @@ public class GenericsMasteryLab {
         //todoS9_2();
     }
 
+    // Todo S9-4:
+    static <T> T firstOf(List<? extends T> list) {
+        // null check and all that is omitted for brevity
+        //list.add(new Object()); this not allowed because we don't know the exact type of the list, it could be List<Dog>, List<Cat>, etc. which would not accept Object
+        return list.get(0); // This is fine, we know it's at least a T
+    }
     // TODO S9-2:
     static <T> void addAll(List<? super T> destination, List<? extends T> source) {
         destination.addAll(source);
