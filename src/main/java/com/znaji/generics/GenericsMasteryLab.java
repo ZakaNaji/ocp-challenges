@@ -107,7 +107,35 @@ public class GenericsMasteryLab {
 
         // Todo S9-1:
         //todoS9_1();
+
+        // Todo S9-2:
+        //todoS9_2();
     }
+
+    // TODO S9-2:
+    static <T> void addAll(List<? super T> destination, List<? extends T> source) {
+        destination.addAll(source);
+    }
+
+    private static void todoS9_2() {
+        List<Animal> animals = new ArrayList<>();
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"));
+        addAll(animals, dogs);
+        System.out.println("Animals after addAll: " + animals);
+
+        List<Object> objects = new ArrayList<>();
+        addAll(objects, dogs);
+        System.out.println("Objects after addAll: " + objects);
+
+        List<Vehicle> vehicles = List.of(new Vehicle("Car"), new Vehicle("Bike"));
+        //addAll(animals, vehicles); // will not compile.
+
+        List<Poodle> poodles = List.of(new Poodle("Fluffy"), new Poodle("Fifi"));
+        addAll(animals, poodles); // This is fine because List<? extends Animal> can accept List<Poodle>
+        addAll(dogs, poodles); // This is also fine because List<? extends Dog> can accept List<Poodle>
+    }
+
+
 
     //Todo S9-1:
     static <T> void copy(List<? extends T> source, List<? super T> destination) {
