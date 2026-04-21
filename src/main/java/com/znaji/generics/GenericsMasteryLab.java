@@ -116,7 +116,30 @@ public class GenericsMasteryLab {
 
         // Todo S10-2:
         //todoS10_2();
+
+        // Todo S10-3:
+        //todoS10_3();
     }
+
+    //Todo S10-3:
+    static int totalNested(Map<String, List<Integer>> data) {
+        return data.values().stream()
+                .flatMap(List::stream)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private static void todoS10_3() {
+        Map<String, List<Integer>> data = Map.of(
+                "A", List.of(1, 2, 3),
+                "B", List.of(4, 5),
+                "C", List.of(6, 7, 8, 9)
+        );
+        int total = totalNested(data);
+        System.out.println("Total sum of nested integers: " + total);
+    }
+
+    
 
     private static void todoS10_2() {
         List<Map<String, Integer>>  scoresList = List.of(
