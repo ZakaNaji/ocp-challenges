@@ -105,8 +105,37 @@ public class GenericsMasteryLab {
         // TODO S8-2:
         //todoS8_2();
 
-
+        // Todo S9-1:
+        //todoS9_1();
     }
+
+    //Todo S9-1:
+    static <T> void copy(List<? extends T> source, List<? super T> destination) {
+        destination.addAll(source);
+    }
+
+    private static void todoS9_1() {
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"));
+        List<Animal> animals = new ArrayList<>();
+        List<Object> objects = new ArrayList<>();
+        copy(dogs, animals);
+        copy(dogs, objects);
+
+        List<Integer> integers = List.of(1, 2, 3);
+        List<Number> numbers = new ArrayList<>();
+        copyIntegers(integers, numbers);
+
+        System.out.println("Animals after copy: " + animals);
+        System.out.println("Objects after copy: " + objects);
+        System.out.println("Numbers after copy: " + numbers);
+
+        //wrong combination that should not compile:
+        List<Vehicle> vehicles = List.of(new Vehicle("Car"), new Vehicle("Bike"));
+        //copy(vehicles, animals); // This should NOT compile because List<Vehicle> is not a subtype of List<? extends Animal>
+
+        copy(vehicles, objects); // This is fine because List<Object> can accept any type, including Vehicle
+    }
+
 
     private static void todoS8_2() {
         List<Animal> animalList = new ArrayList<>();
@@ -1077,6 +1106,8 @@ public class GenericsMasteryLab {
     // Why extends on source?
     // Why super on destination?
 
+    // Answer:
+    // extends on source, first to be able to raad items as T, and second to allow any subtype of T to be used as source, providing flexibility in the types of sources we can copy from. super on destination allows us to write items as T, and also allows any supertype of T to be used as destination, providing flexibility in the types of destinations we can copy to. This combination ensures type safety while maximizing flexibility in the types of collections we can work with.
     // TODO S9-3:
     // Implement:
     // static <T> void addAll(List<? super T> destination, List<? extends T> source)
