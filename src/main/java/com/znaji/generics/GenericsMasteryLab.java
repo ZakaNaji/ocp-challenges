@@ -102,7 +102,37 @@ public class GenericsMasteryLab {
         // TODO S7-1:
         //todoS7_1();
 
+        // TODO S8-2:
+        //todoS8_2();
 
+
+    }
+
+    private static void todoS8_2() {
+        List<Animal> animalList = new ArrayList<>();
+        addThreeDogs(animalList); // This is fine because List<Animal> can accept Dogs
+
+        List<Dog> dogList = new ArrayList<>();
+        addThreeDogs(dogList); // This is also fine because List<Dog> can accept Dogs
+
+        List<Object> objectList = new ArrayList<>();
+        addThreeDogs(objectList);// this is fine because List<Object> can accept Dogs
+    }
+
+    //Todo S8-4:
+    static void copyIntegers(List<Integer> source, List<? super Integer> destination) {
+        destination.addAll(source); // This is fine because we know destination can accept Integers
+    }
+
+    // Todo S8-1:
+    static void addThreeDogs(List<? super Dog> dogs) {
+        dogs.add(new Dog("Rex")); // Todo 8-3: This is fine because we know the list can accept Dogs
+        dogs.add(new Dog("Max"));
+        dogs.add(new Poodle("Fluffy")); // This is fine because Poodle is a subtype of Dog
+
+        // Todo S8-3: reading as a Dog is not allowed because we don't know the exact type of the list. It could be List<Animal> or List<Object>, which would not guarantee that the elements are Dogs.
+        //Dog firstDog = dogs.get(0); // Not allowed, we don't know if it's a Dog, it could be an Animal or Object
+        //Object firstObject = dogs.get(0); // This is fine, we can read as Object since all types are Objects
     }
 
     // TODO S7-4:
@@ -145,7 +175,6 @@ public class GenericsMasteryLab {
         // The following line does NOT compile because List<Vehicle> is not a subtype of List<? extends Animal>:
         //printAnimals(vehicles);
     }
-
 
 
     //Todo S6-1:
@@ -1023,6 +1052,9 @@ public class GenericsMasteryLab {
     // TODO S8-5:
     // Write a short comment:
     // Why is ? super usually described as “consumer”?
+
+    // Answer:
+    // ? super is often described as a "consumer" because it allows you to add (consume) items of a certain type to a collection, but you cannot read (produce) items from the collection as a specific type since you don't know the exact supertype. It is designed for situations where you want to work with a collection that consumes items of a certain type, but you don't care about the specific supertype, allowing for greater flexibility in the types of collections you can use.
 
     // =========================================================
     // SECTION 9 — PECS IN REAL CODE
