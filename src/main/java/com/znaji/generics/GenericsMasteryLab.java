@@ -110,7 +110,24 @@ public class GenericsMasteryLab {
 
         // Todo S9-2:
         //todoS9_2();
+
+        // Todo S10-1:
+        //todoS10_1();
     }
+
+    private static void todoS10_1() {
+        Map<String, List<Integer>> scoresByCategory = new LinkedHashMap<>(); // just to have a predictable order for printing
+        scoresByCategory.put("Math", List.of(90, 85, 92));
+        scoresByCategory.put("Science", List.of(88, 91, 79));
+        scoresByCategory.put("Literature", List.of(95, 89, 94));
+
+        //print sum by category:
+        scoresByCategory.forEach((k, v) -> {
+            int sum = v.stream().mapToInt(Integer::intValue).sum();
+            System.out.println(k + " total score: " + sum);
+        });
+    }
+
 
     // Todo S9-4:
     static <T> T firstOf(List<? extends T> list) {
@@ -118,6 +135,7 @@ public class GenericsMasteryLab {
         //list.add(new Object()); this not allowed because we don't know the exact type of the list, it could be List<Dog>, List<Cat>, etc. which would not accept Object
         return list.get(0); // This is fine, we know it's at least a T
     }
+
     // TODO S9-2:
     static <T> void addAll(List<? super T> destination, List<? extends T> source) {
         destination.addAll(source);
@@ -140,7 +158,6 @@ public class GenericsMasteryLab {
         addAll(animals, poodles); // This is fine because List<? extends Animal> can accept List<Poodle>
         addAll(dogs, poodles); // This is also fine because List<? extends Dog> can accept List<Poodle>
     }
-
 
 
     //Todo S9-1:
