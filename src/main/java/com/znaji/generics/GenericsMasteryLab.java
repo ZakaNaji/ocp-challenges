@@ -3,6 +3,7 @@ package com.znaji.generics;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * GenericsMasteryLab
@@ -132,6 +133,25 @@ public class GenericsMasteryLab {
 
         // Todo S11-3:
         //todoS11_3();
+
+        // Todo S11-4:
+        List<String> strings = List.of("apple", "banana", "avocado", "grape", "apple");
+        Map<String, Integer> freqs = frequencies(strings);
+        System.out.println("Frequencies: " + freqs);
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"), new Dog("Rex"));
+        Map<Dog, Integer> dogFreqs = frequencies(dogs);
+        System.out.println("Dog Frequencies: " + dogFreqs);
+    }
+
+    // Todo S11-4:
+    static <T> Map<T, Integer> frequencies(List<T> input) {
+        return input.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        e -> 1,
+                        Integer::sum
+                ));
     }
 
     private static void todoS11_3() {
