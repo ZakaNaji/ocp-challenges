@@ -1571,6 +1571,46 @@ public class GenericsMasteryLab {
     //
     // Add methods to inspect state.
 
+    static class Result<T> {
+        private final T value;
+        private final String errorMessage;
+
+        private Result(T value, String errorMessage) {
+            this.value = value;
+            this.errorMessage = errorMessage;
+        }
+
+        public static <T> Result<T> success(T value) {
+            return new Result<>(value, null);
+        }
+
+        public static <T> Result<T> failure(String errorMessage) {
+            return new Result<>(null, errorMessage);
+        }
+
+        public boolean isSuccess() {
+            return errorMessage == null;
+        }
+
+        public boolean isFailure() {
+            return errorMessage != null;
+        }
+
+        public T getValue() {
+            if (isFailure()) {
+                throw new IllegalStateException("Cannot get value from a failed result");
+            }
+            return value;
+        }
+
+        public String getErrorMessage() {
+            if (isSuccess()) {
+                throw new IllegalStateException("Cannot get error message from a successful result");
+            }
+            return errorMessage;
+        }
+    }
+
     // TODO S14-3:
     // Design a generic Mapper<S, T> interface.
     // Then implement:
