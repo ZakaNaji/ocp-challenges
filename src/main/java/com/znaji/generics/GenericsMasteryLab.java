@@ -1,5 +1,7 @@
 package com.znaji.generics;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -139,6 +141,20 @@ public class GenericsMasteryLab {
 
         // Todo S11-5:
         //todoS11_5();
+
+        //Todo S14-4:
+        //todoS14_4();
+    }
+
+    private static void todoS14_4() {
+        Range<Integer> integerRange = new Range<>(1, 10);
+        System.out.println("Range contains 5: " + integerRange.contains(5));
+        System.out.println("Range contains 0: " + integerRange.contains(0));
+
+        Range<String> stringRange = new Range<>("A", "Z");
+
+        System.out.println("Range contains 'M': " + stringRange.contains("M"));
+        System.out.println("Range contains 'a': " + stringRange.contains("a"));
     }
 
     private static void todoS11_5() {
@@ -1658,6 +1674,32 @@ public class GenericsMasteryLab {
     //
     // Optional:
     // test with LocalDate if you want
+
+    static class Range<T extends Comparable<T>> {
+        private final T start;
+        private final T end;
+
+        public Range(T start, T end) {
+            if (start.compareTo(end) > 0) {
+                throw new IllegalArgumentException("Start must be less than or equal to end");
+            }
+            this.start = start;
+            this.end = end;
+        }
+
+        public boolean contains(T value) {
+            return value.compareTo(start) >= 0 && value.compareTo(end) <= 0;
+        }
+
+        @Override
+        public String toString() {
+            return "Range {" +
+                    "start=" + start +
+                    ", end=" + end +
+                    '}';
+
+        }
+    }
 
     // =========================================================
     // SECTION 15 — ERROR PREDICTION DRILLS
