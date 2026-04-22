@@ -1451,6 +1451,11 @@ public class GenericsMasteryLab {
     //
     // Keep it simple and practical.
 
+    // Answer:
+    // Use exact type parameter T when you want to work with a specific type and you need to both read and write that type.
+    // Use ? extends T when you want to read items of type T from a collection, but you don't care about the specific subtype. This is useful when you want to work with a collection that produces items of a certain type.
+    // Use ? super T when you want to write items of type T to a collection, but you don't care about the specific supertype. This is useful when you want to work with a collection that consumes items of a certain type.
+
     // =========================================================
     // SECTION 12 — TYPE INFERENCE PRACTICE
     // =========================================================
