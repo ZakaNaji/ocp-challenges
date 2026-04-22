@@ -1618,6 +1618,33 @@ public class GenericsMasteryLab {
     // - Dog -> String
     // - Integer -> String
 
+    static interface Mapper<S, T> {
+        T map(S source);
+    }
+
+     static class StringToIntegerMapper implements Mapper<String, Integer> {
+        @Override
+        public Integer map(String source) {
+            return Integer.parseInt(source);
+        }
+    }
+
+    static class DogToStringMapper implements Mapper<Dog, String> {
+
+        @Override
+        public String map(Dog source) {
+            return source.name();
+        }
+    }
+
+    static class IntegerToStringMapper implements Mapper<Integer, String> {
+
+        @Override
+        public String map(Integer source) {
+            return source.toString();
+        }
+    }
+
     // TODO S14-4:
     // Design a generic Range<T extends Comparable<T>> class.
     // Add:
