@@ -1492,12 +1492,16 @@ public class GenericsMasteryLab {
     // static <T> void copy(List<? super T> dest, List<? extends T> src)
     //
     // Explain it in plain English.
+    // Answer:
+    // This method is a generic method that takes a type parameter T. It copies elements from the source list (src) to the destination list (dest). The source list can be of any type that is a subtype of T (using ? extends T), which means we can read items as T from it. The destination list can be of any type that is a supertype of T (using ? super T), which means we can write items of type T to it. This design allows for maximum flexibility while ensuring type safety during the copy operation.
 
     // TODO S13-2:
     // Write a comment explaining this signature:
     // static <T> void sort(List<T> list, Comparator<? super T> c)
     //
     // Why does Comparator use super?
+    // Answer:
+    // The Comparator uses ? super T because it needs to be able to compare objects of type T, but it can also work with any supertype of T. This allows us to use a Comparator that is designed for a more general type than T, which can be useful if we have a hierarchy of types and want to sort a list of a specific subtype using a Comparator that can handle its supertypes.
 
     // TODO S13-3:
     // Write a comment explaining this signature:
@@ -1506,6 +1510,9 @@ public class GenericsMasteryLab {
     // Why super on T side and extends on R side?
     //
     // Then optionally implement this exact version.
+    // Answer:
+    // The Function uses ? super T for the input type because it needs to be able to accept objects of type T, but it can also accept any supertype of T. This allows for greater flexibility in the types of functions we can use to map the input list. The Function uses ? extends R for the output type because it can produce objects of type R or any subtype of R. This allows for greater flexibility in the types of results we can get from the mapping operation. The combination of super on the input and extends on the output allows for maximum flexibility while maintaining type safety in the mapping process.
+
 
     // TODO S13-4:
     // Create 5 of your own scary-looking generic signatures.
