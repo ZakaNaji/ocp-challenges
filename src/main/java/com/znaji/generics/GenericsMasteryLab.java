@@ -127,6 +127,25 @@ public class GenericsMasteryLab {
         // Todo S11-1:
         //todoS11_1();
 
+        // Todo S11-2:
+        //todoS11_2();
+    }
+
+    private static void todoS11_2() {
+        List<String> strings = List.of("apple", "banana", "avocado", "grape");
+        List<Integer> lengths = transform(strings, String::length);
+        System.out.println("Lengths: " + lengths);
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"));
+        List<String> dogNames = transform(dogs, Dog::name);
+        System.out.println("Dog names: " + dogNames);
+    }
+
+    // Todo S11-2:
+    static <T, R> List<R> transform(List<T> input, Function<T, R> mapper) {
+        return input.stream()
+                .map(mapper)
+                .toList();
     }
 
     private static void todoS11_1() {
