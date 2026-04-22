@@ -135,11 +135,16 @@ public class GenericsMasteryLab {
         //todoS11_3();
 
         // Todo S11-4:
+        //todoS11_4();
+    }
+
+    private static void todoS11_4() {
         List<String> strings = List.of("apple", "banana", "avocado", "grape", "apple");
         Map<String, Integer> freqs = frequencies(strings);
         System.out.println("Frequencies: " + freqs);
 
         List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"), new Dog("Rex"));
+        // Note: for this to work, we did override equals and hashCode in Dog to consider two Dogs equal if they have the same name.
         Map<Dog, Integer> dogFreqs = frequencies(dogs);
         System.out.println("Dog Frequencies: " + dogFreqs);
     }
@@ -720,6 +725,19 @@ public class GenericsMasteryLab {
 
         public void bark() {
             System.out.println(name() + " says woof");
+        }
+
+        @Override
+        public int hashCode() {
+            return name().hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Dog other = (Dog) obj;
+            return name().equals(other.name());
         }
     }
 
