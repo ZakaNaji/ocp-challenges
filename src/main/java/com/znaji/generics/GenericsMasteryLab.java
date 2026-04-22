@@ -136,6 +136,22 @@ public class GenericsMasteryLab {
 
         // Todo S11-4:
         //todoS11_4();
+
+        // Todo S11-5:
+        //todoS11_5();
+    }
+
+    private static void todoS11_5() {
+        Map<String, Integer> map = Map.of("A", 1, "B", 2, "C", 3);
+        printMap(map);
+
+        Map<Dog, String> dogsAndOwners = Map.of(new Dog("Rex"), "Alice", new Dog("Max"), "Bob");
+        printMap(dogsAndOwners);
+    }
+
+    // Todo S11-5:
+    static <K, V> void printMap(Map<K, V> map) {
+        map.forEach((k, v) -> System.out.println(k + " => " + v));
     }
 
     private static void todoS11_4() {
