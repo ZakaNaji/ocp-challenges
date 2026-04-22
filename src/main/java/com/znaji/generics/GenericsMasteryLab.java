@@ -1533,6 +1533,37 @@ public class GenericsMasteryLab {
     //
     // Then create one fake in-memory implementation for a sample domain object.
 
+    static interface Repository<T, ID> {
+        void save(T entity);
+        Optional<T> findById(ID id);
+        List<T> findAll();
+        void deleteById(ID id);
+    }
+
+    static class InMemoryDogRepository implements Repository<Dog, String> {
+        private final Map<String, Dog> storage = new HashMap<>();
+
+        @Override
+        public void save(Dog dog) {
+            storage.put(dog.name(), dog);
+        }
+
+        @Override
+        public Optional<Dog> findById(String id) {
+            return Optional.ofNullable(storage.get(id));
+        }
+
+        @Override
+        public List<Dog> findAll() {
+            return new ArrayList<>(storage.values());
+        }
+
+        @Override
+        public void deleteById(String id) {
+            storage.remove(id);
+        }
+    }
+
     // TODO S14-2:
     // Design a generic Result<T> type representing:
     // - success(value)
