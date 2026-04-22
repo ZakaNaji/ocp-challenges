@@ -2,6 +2,7 @@ package com.znaji.generics;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * GenericsMasteryLab
@@ -122,6 +123,31 @@ public class GenericsMasteryLab {
 
         //Todo S10-4:
         //todoS10_4();
+
+        // Todo S11-1:
+        //todoS11_1();
+
+    }
+
+    private static void todoS11_1() {
+        List<String> strings = List.of("apple", "banana", "avocado", "grape");
+        List<String> filtered = filter(strings, s -> s.startsWith("a"));
+        System.out.println("Filtered strings: " + filtered);
+
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+        List<Integer> evenNumbers = filter(numbers, n -> n % 2 == 0);
+        System.out.println("Filtered even numbers: " + evenNumbers);
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"), new Dog("Buddy"));
+        List<Dog> dogsWithNameStartingWithM = filter(dogs, d -> d.name().startsWith("M"));
+        System.out.println("Filtered dogs: " + dogsWithNameStartingWithM);
+    }
+
+    // Todo S11-1:
+    static <T> List<T> filter(List<T> input, Predicate<T> predicate) {
+        return input.stream()
+                .filter(predicate)
+                .toList();
     }
 
     // Todo S10-4:
