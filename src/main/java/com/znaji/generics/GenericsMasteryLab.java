@@ -129,6 +129,26 @@ public class GenericsMasteryLab {
 
         // Todo S11-2:
         //todoS11_2();
+
+        // Todo S11-3:
+        //todoS11_3();
+    }
+
+    private static void todoS11_3() {
+        List<String> strings = List.of("apple", "banana", "avocado", "grape");
+        Optional<String> firstWithA = findFirst(strings, s -> s.startsWith("a"));
+        System.out.println("First string starting with 'a': " + firstWithA.orElse("None found"));
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"), new Dog("Buddy"));
+        Optional<Dog> firstDogWithNameStartingWithM = findFirst(dogs, d -> d.name().startsWith("M"));
+        System.out.println("First dog with name starting with 'M': " + firstDogWithNameStartingWithM.map(Dog::name).orElse("None found"));
+    }
+
+    // Todo S11-3:
+    static <T> Optional<T> findFirst(List<T> input, Predicate<T> predicate) {
+        return input.stream()
+                .filter(predicate)
+                .findFirst();
     }
 
     private static void todoS11_2() {
