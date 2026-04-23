@@ -1,7 +1,5 @@
 package com.znaji.generics;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -144,6 +142,37 @@ public class GenericsMasteryLab {
 
         //Todo S14-4:
         //todoS14_4();
+
+        // Todo S16-1:
+        List<String> strings = List.of("apple", "banana", "avocado");
+        List<Character> firstChars = flatMap(strings, s -> List.of(s.charAt(0)));
+        System.out.println("First characters: " + firstChars);
+
+        List<Dog> dogs = List.of(new Dog("Rex"), new Dog("Max"));
+        List<String> dogNames = flatMap(dogs, d -> List.of(d.name()));
+        System.out.println("Dog names: " + dogNames);
+    }
+
+
+    // Todo S16-1:
+    /*
+    * ?
+     */
+    static <T, R> List<R> flatMap(
+            List<T> source,
+            Function<? super T, ? extends List<? extends R>> mapper) {
+        /*this:
+        List<R> result = new ArrayList<>();
+            for (T t : source) {
+                List<? extends R> mappedList = mapper.apply(t);
+                result.addAll(mappedList);
+            }
+        return result;
+        or:
+        */
+        return source.stream()
+                .<R>flatMap(t -> mapper.apply(t).stream())
+                .toList();
     }
 
     private static void todoS14_4() {
@@ -284,9 +313,8 @@ public class GenericsMasteryLab {
     }
 
 
-
     private static void todoS10_2() {
-        List<Map<String, Integer>>  scoresList = List.of(
+        List<Map<String, Integer>> scoresList = List.of(
                 Map.of("Math", 90, "Science", 88, "Literature", 95),
                 Map.of("Math", 85, "Science", 91, "Literature", 89),
                 Map.of("Math", 92, "Science", 79, "Literature", 94)
@@ -1551,8 +1579,11 @@ public class GenericsMasteryLab {
 
     static interface Repository<T, ID> {
         void save(T entity);
+
         Optional<T> findById(ID id);
+
         List<T> findAll();
+
         void deleteById(ID id);
     }
 
@@ -1638,7 +1669,7 @@ public class GenericsMasteryLab {
         T map(S source);
     }
 
-     static class StringToIntegerMapper implements Mapper<String, Integer> {
+    static class StringToIntegerMapper implements Mapper<String, Integer> {
         @Override
         public Integer map(String source) {
             return Integer.parseInt(source);
