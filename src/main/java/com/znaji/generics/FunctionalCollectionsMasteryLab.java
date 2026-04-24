@@ -225,35 +225,77 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 1:
             // Return a List<String> containing only course titles.
             // Use stream + map + toList.
+            List<String> courseTiles = data.courses.stream()
+                    .map(Course::title)
+                    .toList();
 
             // TODO 2:
             // Return a List<Course> of only ADVANCED courses.
+            List<Course> advancedCourses = data.courses.stream()
+                    .filter(course -> course.level() == Level.ADVANCED)
+                    .toList();
 
             // TODO 3:
             // Return a List<String> of student names sorted alphabetically.
+            List<String> sortedListOfStudentsNames = data.students.stream()
+                    .map(Student::name)
+                    .sorted(Comparator.naturalOrder())
+                    .toList();
 
             // TODO 4:
             // Return a List<String> of course titles sorted by rating descending.
 
+            List<String> courseTitleSortedByRating = data.courses.stream()
+                    .sorted(Comparator.comparingDouble(Course::rating)
+                            .reversed()
+                            .thenComparing(Course::title))
+                    .map(Course::title)
+                    .toList();
+
             // TODO 5:
             // Count how many courses belong to BACKEND.
+            long countBackEndCourses = data.courses.stream()
+                    .filter(course -> course.category == Category.BACKEND)
+                    .count();
 
             // TODO 6:
             // Check whether any student has age < 23.
 
+            boolean anyStudentUnder23 = data.students.stream()
+                    .anyMatch(student -> student.age() < 23);
+
             // TODO 7:
             // Check whether all students have at least one enrolled course.
+
+            boolean allStudentAreEnrolled = data.students.stream()
+                    .noneMatch(student -> student.enrolledCourseIds().isEmpty());
 
             // TODO 8:
             // Find the first course with rating >= 4.9.
             // Return Optional<Course>.
 
+            Optional<Course> firstGreatCourse = data.courses.stream()
+                    .filter(course -> course.rating >= 4.9)
+                    .findFirst();
+
             // TODO 9:
             // Find the longest course title using reduce.
+            Optional<String> longestCourseTitle = data.courses.stream()
+                    .map(Course::title)
+                    .reduce((c1, c2) -> c1.length() > c2.length() ? c1 : c2);
 
             // TODO 10:
             // Build a single comma-separated String of all instructor names.
             // First do it with collect(joining), then do it again with reduce.
+
+            String joinedInstructorsName = data.instructors.stream()
+                    .map(Instructor::name)
+                    .collect(Collectors.joining(", "));
+
+            Optional<String> reducedInstructorNames = data.instructors.stream()
+                    .map(Instructor::name)
+                    .reduce((n1, n2) -> n1 + ", " + n2);
+
         }
     }
 
