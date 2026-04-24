@@ -310,10 +310,22 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 11:
             // Get all tags from all courses as a single List<String>.
             // This is your first flatMap challenge.
+            List<String> allCoursesTags = data.courses().stream()
+                    .map(Course::tags)
+                    .flatMap(List::stream)
+                    .toList();
 
+            System.out.println("all courses tags: " + allCoursesTags);
             // TODO 12:
             // Get all distinct tags, sorted alphabetically.
 
+            List<String> distinctSortedCoursesTags = data.courses().stream()
+                    .flatMap(course -> course.tags().stream())
+                    .distinct()
+                    .sorted(Comparator.naturalOrder())
+                    .toList();
+
+            System.out.println("distinct and sorted alpha courses tags: " + distinctSortedCoursesTags);
             // TODO 13:
             // Get all enrolled course ids from all students as one flat stream.
             // Then count how many total enrollments exist.
