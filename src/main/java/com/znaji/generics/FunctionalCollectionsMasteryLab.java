@@ -379,11 +379,31 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 17:
             // Find course titles that have at least one tag containing "java".
 
+            List<String> coursesWithJavaTag = data.courses().stream()
+                    .filter(course -> course.tags().contains("java"))
+                    .map(Course::title)
+                    .toList();
+
+            System.out.println("courses with java tag: " + coursesWithJavaTag);
             // TODO 18:
             // Produce a List<String> where each entry looks like:
             // "Alice -> Java Generics Deep Dive"
             // for every enrollment of every student.
             // This is a good flatMap + lookup challenge.
+
+            Map<String, String> courseIdsTitlesMap = data.courses().stream()
+                    .collect(Collectors.toMap(
+                            Course::id,
+                            Course::title
+                    ));
+
+            List<String> ListOfStudentAndEnrolledCourseTitle1 = data.students().stream()
+                    .flatMap(student -> student.enrolledCourseIds()
+                            .stream()
+                            .map(enrolledCourseId -> student.name() + " -> " + courseIdsTitlesMap.get(enrolledCourseId))
+                    ).toList();
+
+            System.out.println("Students and there enrolled courses titles: " + ListOfStudentAndEnrolledCourseTitle1);
 
             // TODO 19:
             // From all scores of all students, produce:
