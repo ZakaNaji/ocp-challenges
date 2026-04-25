@@ -411,6 +411,14 @@ public class FunctionalCollectionsMasteryLab {
             // - sorted descending
             // - with duplicates preserved
 
+            List<Integer> sortedStudentsScores = data.students().stream()
+                    .flatMap(student -> student.scores().stream())
+                    .filter(score -> score >= 90)
+                    .sorted(Comparator.reverseOrder())
+                    .toList();
+
+            System.out.println("students scores above 90, sorted desc: " + sortedStudentsScores);
+
             // TODO 20:
             // Find the average of all scores across all students.
             // Return OptionalDouble or double, your choice.
