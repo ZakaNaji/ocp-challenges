@@ -422,6 +422,13 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 20:
             // Find the average of all scores across all students.
             // Return OptionalDouble or double, your choice.
+
+            OptionalDouble studentsScoresAverage = data.students().stream()
+                    .flatMap(student -> student.scores().stream())
+                    .mapToDouble(Integer::doubleValue)
+                    .average();
+
+            System.out.println(String.format("students average score %.2f", studentsScoresAverage.orElse(0.0)));
         }
     }
 
