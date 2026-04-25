@@ -347,6 +347,18 @@ public class FunctionalCollectionsMasteryLab {
             // Find all course titles for courses that any student has completed.
             // Output should be distinct and sorted.
 
+            Set<String> completedCourses = data.students().stream()
+                    .flatMap(student -> student.completedCourseIds().stream())
+                    .collect(Collectors.toSet());
+
+            List<String> listOfCompletedCourses = data.courses().stream()
+                    .filter(course -> completedCourses.contains(course.id()))
+                    .map(Course::title)
+                    .distinct()
+                    .sorted()
+                    .toList();
+
+            System.out.println("List of course completed by a student at least: " + listOfCompletedCourses);
             // TODO 16:
             // Find students enrolled in at least one ADVANCED course.
             // Return their names.
