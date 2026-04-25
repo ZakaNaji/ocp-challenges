@@ -329,10 +329,20 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 13:
             // Get all enrolled course ids from all students as one flat stream.
             // Then count how many total enrollments exist.
+            long totalEnrollments = data.students().stream()
+                    .flatMap(student -> student.enrolledCourseIds.stream())
+                    .count();
+
+            System.out.println("total enrollments: " + totalEnrollments);
 
             // TODO 14:
             // Get all distinct course ids that at least one student is enrolled in.
+            List<String> distinctEnrolledInCourses = data.students.stream()
+                    .flatMap(student -> student.enrolledCourseIds.stream())
+                    .distinct()
+                    .toList();
 
+            System.out.println("distinct enrolled in courses: " + distinctEnrolledInCourses);
             // TODO 15:
             // Find all course titles for courses that any student has completed.
             // Output should be distinct and sorted.
