@@ -362,6 +362,19 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 16:
             // Find students enrolled in at least one ADVANCED course.
             // Return their names.
+            Set<String> advancedCoursesIds = data.courses().stream()
+                    .filter(course -> course.level() == Level.ADVANCED)
+                    .map(Course::id)
+                    .collect(Collectors.toSet());
+
+            List<String> studentEnrolledInAdvancedCourses = data.students().stream()
+                    .filter(student -> student.enrolledCourseIds()
+                            .stream()
+                            .anyMatch(advancedCoursesIds::contains))
+                    .map(Student::name)
+                    .toList();
+
+            System.out.println("Students enrolled in at least one advanced course: " + studentEnrolledInAdvancedCourses);
 
             // TODO 17:
             // Find course titles that have at least one tag containing "java".
