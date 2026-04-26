@@ -485,6 +485,12 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 24:
             // Find the highest-rated course in each category.
             // Result type: Map<Category, Optional<Course>>
+            Map<Category, Optional<Course>> highestRatedCoursePerCat = data.courses().stream()
+                    .collect(Collectors.groupingBy(
+                            Course::category,
+                            Collectors.maxBy(Comparator.comparingDouble(Course::rating))
+                    ));
+            System.out.println("Highest rated course per cat: " + highestRatedCoursePerCat);
 
             // TODO 25:
             // Same as TODO 24, but unwrap the Optional safely so the final map is:
