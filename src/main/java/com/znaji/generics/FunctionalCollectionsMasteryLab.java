@@ -474,6 +474,13 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 23:
             // Count how many courses exist in each category.
             // Result type: Map<Category, Long>
+            Map<Category, Long> countOfCoursesPerCategory = data.courses().stream()
+                    .collect(Collectors.groupingBy(
+                            Course::category,
+                            Collectors.counting()
+                    ));
+
+            System.out.println("count of courses per cat: " + countOfCoursesPerCategory);
 
             // TODO 24:
             // Find the highest-rated course in each category.
