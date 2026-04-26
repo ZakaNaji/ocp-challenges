@@ -443,11 +443,33 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 21:
             // Group courses by category.
             // Result type: Map<Category, List<Course>>
+             Map<Category, List<Course>> coursesByCat = data.courses().stream()
+                    .collect(Collectors.groupingBy(Course::category));
 
+            System.out.println("courses by category: " + coursesByCat);
             // TODO 22:
             // Group courses by level.
             // Result type: Map<Level, List<String>>
             // Store only course titles, not Course objects.
+            /*version1 - using Collectors.toMap :
+            Map<Level, List<String>> coursesTitlesByLevel = data.courses().stream()
+                    .collect(Collectors.toMap(
+                            Course::level,
+                            course -> new ArrayList<>(List.of(course.title())),
+                            (l1, li2) -> {
+                                l1.addAll(li2);
+                                return l1;
+                            }
+                    ));*/
+            Map<Level, List<String>> coursesTitlesByLevel = data.courses().stream()
+                            .collect(Collectors.groupingBy(
+                                    Course::level,
+                                    Collectors.mapping(
+                                            Course::title,
+                                            Collectors.toList()
+                                    )
+                            ));
+            System.out.println("courses titles grouped by level: " + coursesTitlesByLevel);
 
             // TODO 23:
             // Count how many courses exist in each category.
