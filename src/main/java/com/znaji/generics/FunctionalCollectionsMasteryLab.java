@@ -617,6 +617,16 @@ public class FunctionalCollectionsMasteryLab {
             // Create a Map<Category, String> where each value is a single joined string
             // of course titles in that category, separated by " | ".
 
+            Map<Category, String> courseTitlesPerCat = data.courses().stream()
+                    .collect(Collectors.groupingBy(
+                            Course::category,
+                            Collectors.mapping(
+                                    Course::title,
+                                    Collectors.joining(" | ")
+                            )
+                    ));
+
+            System.out.println("course titles per cat: " + courseTitlesPerCat);
             // TODO 31:
             // For each student, compute average score.
             // Result type: Map<String, Double>
