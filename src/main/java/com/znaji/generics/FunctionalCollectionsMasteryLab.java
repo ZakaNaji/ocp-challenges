@@ -593,6 +593,15 @@ public class FunctionalCollectionsMasteryLab {
             // Create a Map<String, Course> indexed by course id.
             // Then think:
             // what would happen if course ids were not unique?
+            Map<String, Course> coursesById = data.courses().stream()
+                    .collect(Collectors.toMap(
+                                    Course::id,
+                                    Function.identity()
+                            )
+                    );
+
+            System.out.println("courses index by id: " + coursesById);
+            //in case the ids where not unique, then we will need to add merge function to our toMap to specify how to handle duplicates.
 
             // TODO 29:
             // Create a Map<Category, Double> of average rating per category.
