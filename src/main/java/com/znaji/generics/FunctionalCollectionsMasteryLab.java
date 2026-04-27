@@ -605,6 +605,13 @@ public class FunctionalCollectionsMasteryLab {
 
             // TODO 29:
             // Create a Map<Category, Double> of average rating per category.
+            Map<Category, Double> averageRatingPerCat = data.courses().stream()
+                    .collect(Collectors.groupingBy(
+                            Course::category,
+                            Collectors.averagingDouble(Course::rating)
+                    ));
+
+            System.out.println("average Rating Per Cat: " + averageRatingPerCat);
 
             // TODO 30:
             // Create a Map<Category, String> where each value is a single joined string
