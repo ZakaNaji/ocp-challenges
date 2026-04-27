@@ -513,6 +513,14 @@ public class FunctionalCollectionsMasteryLab {
             // - age >= 26
             // - age < 26
             // Result type: Map<Boolean, List<Student>>
+            Map<Boolean, List<Student>> grownUpStudents = data.students().stream()
+                    .collect(Collectors.groupingBy(
+                            student -> student.age >= 26
+
+                    ));
+
+            System.out.println("grown up students: " + grownUpStudents.get(true));
+            System.out.println("still young students: " + grownUpStudents.get(false));
 
             // TODO 27:
             // Group students by the number of enrolled courses.
