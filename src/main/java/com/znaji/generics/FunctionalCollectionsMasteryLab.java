@@ -6,15 +6,15 @@ import java.util.stream.*;
 
 /**
  * GENERICS + COLLECTIONS + LAMBDAS + STREAMS MASTERY LAB
- *
+ * <p>
  * Rules:
  * 1. Do NOT solve everything at once.
  * 2. Work challenge by challenge.
  * 3. For every TODO, first write a loop-based version in comments if useful,
- *    then implement the stream/lambda/generic version.
+ * then implement the stream/lambda/generic version.
  * 4. Prefer clear code over clever code.
  * 5. Do not modify the provided data model unless a TODO explicitly asks for it.
- *
+ * <p>
  * Suggested order:
  * - Part 1 -> warm-up
  * - Part 2 -> stream fundamentals
@@ -66,13 +66,33 @@ public class FunctionalCollectionsMasteryLab {
             this.tags = List.copyOf(tags);
         }
 
-        public String id() { return id; }
-        public String title() { return title; }
-        public Category category() { return category; }
-        public Level level() { return level; }
-        public int durationHours() { return durationHours; }
-        public double rating() { return rating; }
-        public List<String> tags() { return tags; }
+        public String id() {
+            return id;
+        }
+
+        public String title() {
+            return title;
+        }
+
+        public Category category() {
+            return category;
+        }
+
+        public Level level() {
+            return level;
+        }
+
+        public int durationHours() {
+            return durationHours;
+        }
+
+        public double rating() {
+            return rating;
+        }
+
+        public List<String> tags() {
+            return tags;
+        }
 
         @Override
         public String toString() {
@@ -108,12 +128,29 @@ public class FunctionalCollectionsMasteryLab {
             this.scores = List.copyOf(scores);
         }
 
-        public String id() { return id; }
-        public String name() { return name; }
-        public int age() { return age; }
-        public List<String> enrolledCourseIds() { return enrolledCourseIds; }
-        public Set<String> completedCourseIds() { return completedCourseIds; }
-        public List<Integer> scores() { return scores; }
+        public String id() {
+            return id;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public int age() {
+            return age;
+        }
+
+        public List<String> enrolledCourseIds() {
+            return enrolledCourseIds;
+        }
+
+        public Set<String> completedCourseIds() {
+            return completedCourseIds;
+        }
+
+        public List<Integer> scores() {
+            return scores;
+        }
 
         @Override
         public String toString() {
@@ -141,10 +178,21 @@ public class FunctionalCollectionsMasteryLab {
             this.teachingCourseIds = List.copyOf(teachingCourseIds);
         }
 
-        public String id() { return id; }
-        public String name() { return name; }
-        public List<Category> specialties() { return specialties; }
-        public List<String> teachingCourseIds() { return teachingCourseIds; }
+        public String id() {
+            return id;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public List<Category> specialties() {
+            return specialties;
+        }
+
+        public List<String> teachingCourseIds() {
+            return teachingCourseIds;
+        }
 
         @Override
         public String toString() {
@@ -168,9 +216,17 @@ public class FunctionalCollectionsMasteryLab {
             this.instructors = List.copyOf(instructors);
         }
 
-        public List<Course> courses() { return courses; }
-        public List<Student> students() { return students; }
-        public List<Instructor> instructors() { return instructors; }
+        public List<Course> courses() {
+            return courses;
+        }
+
+        public List<Student> students() {
+            return students;
+        }
+
+        public List<Instructor> instructors() {
+            return instructors;
+        }
     }
 
     // =========================================================
@@ -443,7 +499,7 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 21:
             // Group courses by category.
             // Result type: Map<Category, List<Course>>
-             Map<Category, List<Course>> coursesByCat = data.courses().stream()
+            Map<Category, List<Course>> coursesByCat = data.courses().stream()
                     .collect(Collectors.groupingBy(Course::category));
 
             System.out.println("courses by category: " + coursesByCat);
@@ -462,13 +518,13 @@ public class FunctionalCollectionsMasteryLab {
                             }
                     ));*/
             Map<Level, List<String>> coursesTitlesByLevel = data.courses().stream()
-                            .collect(Collectors.groupingBy(
-                                    Course::level,
-                                    Collectors.mapping(
-                                            Course::title,
-                                            Collectors.toList()
-                                    )
-                            ));
+                    .collect(Collectors.groupingBy(
+                            Course::level,
+                            Collectors.mapping(
+                                    Course::title,
+                                    Collectors.toList()
+                            )
+                    ));
             System.out.println("courses titles grouped by level: " + coursesTitlesByLevel);
 
             // TODO 23:
@@ -527,6 +583,12 @@ public class FunctionalCollectionsMasteryLab {
             // Result type: Map<Integer, List<String>>
             // Store student names.
 
+            Map<Integer, List<Student>> groupedStudentsByCountOfEnrolledCOurses = data.students().stream()
+                    .collect(Collectors.groupingBy(
+                            student -> student.enrolledCourseIds().size()
+                    ));
+
+            System.out.println("grouped students by num of enrolled courses: " + groupedStudentsByCountOfEnrolledCOurses);
             // TODO 28:
             // Create a Map<String, Course> indexed by course id.
             // Then think:
