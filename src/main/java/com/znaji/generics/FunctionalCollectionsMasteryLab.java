@@ -632,6 +632,19 @@ public class FunctionalCollectionsMasteryLab {
             // Result type: Map<String, Double>
             // key = student name
 
+            Map<String, Double> studentsAndAverageScores = data.students().stream()
+                    .collect(Collectors.groupingBy(
+                            Student::name,
+                            Collectors.averagingDouble(student -> student.scores().stream()
+                                    .mapToDouble(Integer::doubleValue)
+                                    .average()
+                                    .orElse(0.0))
+                    ));
+
+            studentsAndAverageScores.forEach((student, avgScore) -> {
+                System.out.printf("student name {%s} and average score: %.2f%n", student, avgScore);
+                System.out.println();
+            });
             // TODO 32:
             // Create a nested grouping:
             // Map<Category, Map<Level, List<String>>>
