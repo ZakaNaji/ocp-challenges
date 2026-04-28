@@ -685,6 +685,12 @@ public class FunctionalCollectionsMasteryLab {
             // Build a Set<String> of all categories taught by all instructors.
             // Store enum names as strings.
 
+            Set<String> categoriesTaughtByAllInstructors = data.instructors().stream()
+                    .flatMap(instructor -> instructor.specialties().stream())
+                    .map(Category::toString)
+                    .collect(Collectors.toSet());
+
+            System.out.println("All the cat taught by the instructors: " + categoriesTaughtByAllInstructors);
         }
     }
 
