@@ -670,10 +670,21 @@ public class FunctionalCollectionsMasteryLab {
             // Collect all tags into a frequency map.
             // Result type: Map<String, Long>
             // Example: "java" -> how many times it appears across all courses
+            Map<String, Long> tagsFrequency = data.courses().stream()
+                    .collect(Collectors.flatMapping(
+                            course -> course.tags().stream(),
+                            Collectors.groupingBy(
+                                    Function.identity(),
+                                    Collectors.counting()
+                            )
+                    ));
+
+            System.out.println("tags frequency: " + tagsFrequency);
 
             // TODO 34:
             // Build a Set<String> of all categories taught by all instructors.
             // Store enum names as strings.
+
         }
     }
 
