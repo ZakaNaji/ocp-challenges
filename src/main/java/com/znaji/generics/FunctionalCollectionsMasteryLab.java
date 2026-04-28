@@ -649,6 +649,22 @@ public class FunctionalCollectionsMasteryLab {
             // Create a nested grouping:
             // Map<Category, Map<Level, List<String>>>
             // containing course titles.
+            Map<Category, Map<Level, List<String>>> courseTitlesPerCategoryAndLevel = data.courses().stream()
+                    .collect(Collectors.groupingBy(
+                            Course::category,
+                            Collectors.groupingBy(
+                                    Course::level,
+                                    Collectors.mapping(
+                                            Course::title,
+                                            Collectors.toList()
+                                    )
+                            )
+                    ));
+
+            courseTitlesPerCategoryAndLevel.forEach((cat, entry) -> {
+                System.out.println("Category : " + cat + " has :");
+                System.out.println(entry);
+            });
 
             // TODO 33:
             // Collect all tags into a frequency map.
