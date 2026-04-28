@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
+import static java.util.stream.Collectors.*;
+
 /**
  * GENERICS + COLLECTIONS + LAMBDAS + STREAMS MASTERY LAB
  * <p>
@@ -570,10 +572,7 @@ public class FunctionalCollectionsMasteryLab {
             // - age < 26
             // Result type: Map<Boolean, List<Student>>
             Map<Boolean, List<Student>> grownUpStudents = data.students().stream()
-                    .collect(Collectors.groupingBy(
-                            student -> student.age >= 26
-
-                    ));
+                    .collect(Collectors.partitioningBy(student -> student.age() >= 26));
 
             System.out.println("grown up students: " + grownUpStudents.get(true));
             System.out.println("still young students: " + grownUpStudents.get(false));
@@ -583,9 +582,13 @@ public class FunctionalCollectionsMasteryLab {
             // Result type: Map<Integer, List<String>>
             // Store student names.
 
-            Map<Integer, List<Student>> groupedStudentsByCountOfEnrolledCOurses = data.students().stream()
+            Map<Integer, List<String>> groupedStudentsByCountOfEnrolledCOurses = data.students().stream()
                     .collect(Collectors.groupingBy(
-                            student -> student.enrolledCourseIds().size()
+                            student -> student.enrolledCourseIds().size(),
+                            mapping(
+                                    Student::name,
+                                    toList()
+                            )
                     ));
 
             System.out.println("grouped students by num of enrolled courses: " + groupedStudentsByCountOfEnrolledCOurses);
@@ -633,12 +636,12 @@ public class FunctionalCollectionsMasteryLab {
             // key = student name
 
             Map<String, Double> studentsAndAverageScores = data.students().stream()
-                    .collect(Collectors.groupingBy(
+                    .collect(toMap(
                             Student::name,
-                            Collectors.averagingDouble(student -> student.scores().stream()
-                                    .mapToDouble(Integer::doubleValue)
+                            student -> student.scores().stream()
+                                    .mapToInt(Integer::intValue)
                                     .average()
-                                    .orElse(0.0))
+                                    .orElse(0.0)
                     ));
 
             studentsAndAverageScores.forEach((student, avgScore) -> {
