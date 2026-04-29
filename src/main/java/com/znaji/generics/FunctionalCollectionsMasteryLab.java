@@ -709,6 +709,15 @@ public class FunctionalCollectionsMasteryLab {
             // Implement a generic method:
             // <T> List<T> filterList(List<T> input, Predicate<? super T> predicate)
             // Return a NEW list.
+            List<String> listOfWords = List.of("stream", "lambda", "generics", "collections", "java");
+            List<String> filteredList = filter(listOfWords, word -> word.length() > 6);
+            System.out.println("filtered list: " + filteredList);
+
+            Predicate<CharSequence> lengthGreaterThan6 = cs -> cs.length() > 6;
+            List<String> filteredList2 = filter(listOfWords, lengthGreaterThan6);
+            System.out.println("filtered list 2: " + filteredList2);
+
+
 
             // TODO 36:
             // Implement a generic method:
@@ -755,7 +764,9 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 35 implementation here
         // static <T> List<T> filterList(...) { ... }
-
+        static <T> List<T> filter(List<T> input, Predicate<? super T> condition) {
+            return input.stream().filter(condition).toList();
+        }
         // TODO 36 implementation here
         // static <T, R> List<R> mapList(...) { ... }
 
