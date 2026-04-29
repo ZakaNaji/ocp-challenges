@@ -723,6 +723,10 @@ public class FunctionalCollectionsMasteryLab {
             // Implement a generic method:
             // <T, R> List<R> mapList(List<T> input, Function<? super T, ? extends R> mapper)
 
+            Function<CharSequence, Integer> wordLengthMapper = CharSequence::length;
+            List<Number> wordsLength = mapList(listOfWords, wordLengthMapper);
+            System.out.println(wordsLength);
+
             // TODO 37:
             // Implement a generic method:
             // <T> Optional<T> findFirstMatching(List<T> input, Predicate<? super T> predicate)
@@ -769,6 +773,9 @@ public class FunctionalCollectionsMasteryLab {
         }
         // TODO 36 implementation here
         // static <T, R> List<R> mapList(...) { ... }
+        static <T, R> List<R> mapList(List<T> input, Function<? super T, ? extends R> mapper) {
+            return input.stream().<R>map(mapper).toList();
+        }
 
         // TODO 37 implementation here
         // static <T> Optional<T> findFirstMatching(...) { ... }
