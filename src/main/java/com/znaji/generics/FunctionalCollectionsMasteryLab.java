@@ -743,15 +743,28 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 39:
             // Implement a generic method:
             // <T> List<T> mergeLists(List<? extends T> left, List<? extends T> right)
+            List<String> list1 = List.of("a", "b", "c");
+            List<String> list2 = List.of("d", "e", "f");
+            List<String> mergedList = mergeLists(list1, list2);
+            System.out.println("merged list: " + mergedList);
+
 
             // TODO 40:
             // Implement a generic method:
             // <T> void copyAll(List<? extends T> source, List<? super T> target)
             // This is a PECS exercise.
+            List<String> source = List.of("x", "y", "z");
+            List<Object> target = new ArrayList<>();
+            copyAll(source, target);
+            System.out.println("target after copyAll: " + target);
+
 
             // TODO 41:
             // Implement a generic method:
             // <T> List<T> distinctPreservingOrder(List<T> input)
+                List<String> wordsWithDuplicates2 = List.of("java", "stream", "java", "lambda", "stream", "generics");
+                List<String> distinctWordsPreservingOrder = distinctPreservingOrder(wordsWithDuplicates2);
+                System.out.println("distinct words preserving order: " + distinctWordsPreservingOrder);
 
             // TODO 42:
             // Implement a generic method:
@@ -799,12 +812,22 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 39 implementation here
         // static <T> List<T> mergeLists(...) { ... }
+        static <T> List<T> mergeLists(List<? extends T> left, List<? extends T> right) {
+            return Stream.concat(left.stream(), right.stream())
+                    .toList();
+        }
 
         // TODO 40 implementation here
         // static <T> void copyAll(...) { ... }
+        static <T> void copyAll(List<? extends T> source, List<? super T> target) {
+            target.addAll(source);
+        }
 
         // TODO 41 implementation here
         // static <T> List<T> distinctPreservingOrder(...) { ... }
+        static <T> List<T> distinctPreservingOrder(List<T> input) {
+            return input.stream().distinct().toList();
+        }
 
         // TODO 42 implementation here
         // static <T> List<T> sortWithComparator(...) { ... }
