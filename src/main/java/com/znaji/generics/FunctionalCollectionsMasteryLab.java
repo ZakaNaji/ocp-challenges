@@ -911,7 +911,12 @@ public class FunctionalCollectionsMasteryLab {
             // tie-breaker: highest number of taught courses
             // tie-breaker: lexicographically smaller name
             // Return Optional<Instructor>.
+            Optional<Instructor> mostVersatile = data.instructors().stream()
+                    .max(Comparator.comparingInt((Instructor i) -> i.specialties().size())
+                            .thenComparingInt(i -> i.teachingCourseIds().size())
+                            .thenComparing(Comparator.comparing(Instructor::name).reversed()));
 
+            System.out.println("most versatile instructor: " + mostVersatile.orElse(null));
             // TODO 47:
             // Build a leaderboard of students by average score descending.
             // Output:
