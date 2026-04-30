@@ -797,6 +797,10 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 45:
             // Implement a generic partition method:
             // <T> Map<Boolean, List<T>> partitionBy(List<T> input, Predicate<? super T> predicate)
+            List<String> words3 = List.of("stream", "lambda", "generics", "collections", "java");
+            Map<Boolean, List<String>> partitionedWords = partitionBy(words3, word -> word.length() > 6);
+            System.out.println("partitioned words: " + partitionedWords);
+
         }
 
         // TODO 35 implementation here
