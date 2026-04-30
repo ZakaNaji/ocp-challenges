@@ -770,6 +770,10 @@ public class FunctionalCollectionsMasteryLab {
             // Implement a generic method:
             // <T> List<T> sortWithComparator(List<T> input, Comparator<? super T> comparator)
             // Return a NEW list.
+            List<String> unsortedWords = List.of("stream", "lambda", "generics", "collections", "java");
+            List<String> sortedWords = sortWithComparator(unsortedWords, Comparator.naturalOrder());
+            System.out.println("sorted words: " + sortedWords);
+            System.out.println("original unsorted words: " + unsortedWords);
 
             // TODO 43:
             // Implement a generic max method:
@@ -831,6 +835,9 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 42 implementation here
         // static <T> List<T> sortWithComparator(...) { ... }
+        static <T> List<T> sortWithComparator(List<T> input, Comparator<? super T> comparator) {
+            return input.stream().sorted(comparator).toList();
+        }
 
         // TODO 43 implementation here
         // static <T> Optional<T> maxBy(...) { ... }
