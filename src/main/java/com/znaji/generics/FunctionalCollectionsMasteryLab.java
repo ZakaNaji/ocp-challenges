@@ -718,7 +718,6 @@ public class FunctionalCollectionsMasteryLab {
             System.out.println("filtered list 2: " + filteredList2);
 
 
-
             // TODO 36:
             // Implement a generic method:
             // <T, R> List<R> mapList(List<T> input, Function<? super T, ? extends R> mapper)
@@ -736,9 +735,9 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 38:
             // Implement a generic method:
             // <T> Map<T, Long> frequencyMap(List<T> input)
-                List<String> wordsWithDuplicates = List.of("java", "stream", "java", "lambda", "stream", "generics");
-                Map<String, Long> frequencyOfWords = frequencyMap(wordsWithDuplicates);
-                System.out.println("frequency of words: " + frequencyOfWords);
+            List<String> wordsWithDuplicates = List.of("java", "stream", "java", "lambda", "stream", "generics");
+            Map<String, Long> frequencyOfWords = frequencyMap(wordsWithDuplicates);
+            System.out.println("frequency of words: " + frequencyOfWords);
 
             // TODO 39:
             // Implement a generic method:
@@ -762,9 +761,9 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 41:
             // Implement a generic method:
             // <T> List<T> distinctPreservingOrder(List<T> input)
-                List<String> wordsWithDuplicates2 = List.of("java", "stream", "java", "lambda", "stream", "generics");
-                List<String> distinctWordsPreservingOrder = distinctPreservingOrder(wordsWithDuplicates2);
-                System.out.println("distinct words preserving order: " + distinctWordsPreservingOrder);
+            List<String> wordsWithDuplicates2 = List.of("java", "stream", "java", "lambda", "stream", "generics");
+            List<String> distinctWordsPreservingOrder = distinctPreservingOrder(wordsWithDuplicates2);
+            System.out.println("distinct words preserving order: " + distinctWordsPreservingOrder);
 
             // TODO 42:
             // Implement a generic method:
@@ -778,10 +777,22 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 43:
             // Implement a generic max method:
             // <T> Optional<T> maxBy(Collection<T> items, Comparator<? super T> comparator)
+            List<String> words = List.of("stream", "lambda", "generics", "collections", "java");
+            Optional<String> maxWord = maxBy(words, Comparator.naturalOrder());
+            System.out.println("max word: " + maxWord.orElse("none"));
+
+            List<Integer> numbers = List.of(42, 17, 68, 3, 99);
+            Optional<Integer> maxNumber = maxBy(numbers, Comparator.naturalOrder());
+            System.out.println("max number: " + maxNumber.orElse(-1));
+
 
             // TODO 44:
             // Implement a generic grouping method:
             // <T, K> Map<K, List<T>> groupBy(List<T> input, Function<? super T, ? extends K> classifier)
+
+            List<String> words2 = List.of("stream", "lambda", "generics", "collections", "java");
+            Map<Integer, List<String>> wordsGroupedByLength = groupBy(words2, String::length);
+            System.out.println("words grouped by length: " + wordsGroupedByLength);
 
             // TODO 45:
             // Implement a generic partition method:
@@ -793,6 +804,7 @@ public class FunctionalCollectionsMasteryLab {
         static <T> List<T> filter(List<T> input, Predicate<? super T> condition) {
             return input.stream().filter(condition).toList();
         }
+
         // TODO 36 implementation here
         // static <T, R> List<R> mapList(...) { ... }
         static <T, R> List<R> mapList(List<T> input, Function<? super T, ? extends R> mapper) {
@@ -807,7 +819,7 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 38 implementation here
         // static <T> Map<T, Long> frequencyMap(...) { ... }
-        static <T> Map<T, Long> frequencyMap(List<T> input ) {
+        static <T> Map<T, Long> frequencyMap(List<T> input) {
             return input.stream().collect(groupingBy(
                     Function.identity(),
                     counting()
@@ -841,12 +853,43 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 43 implementation here
         // static <T> Optional<T> maxBy(...) { ... }
+        static <T> Optional<T> maxBy(Collection<T> input, Comparator<? super T> comparator) {
+            return input.stream().max(comparator);
+        }
 
         // TODO 44 implementation here
         // static <T, K> Map<K, List<T>> groupBy(...) { ... }
+        static <T, K> Map<K, List<T>> groupBy(List<T> input, Function<? super T, ? extends K> mapper) {
+            /*
+            or just simply:
+            return input.stream().collect(groupingBy(mapper));
+             */
+
+            return input.stream().collect(toMap(
+                    mapper,
+                    elemnt -> new ArrayList<>(List.of(elemnt)),
+                    (l1, l2) -> {
+                        l1.addAll(l2);
+                        return l1;
+                    }
+            ));
+        }
 
         // TODO 45 implementation here
         // static <T> Map<Boolean, List<T>> partitionBy(...) { ... }
+        static <T> Map<Boolean, List<T>> partitionBy(List<T> input, Predicate<? super T> condition) {
+            /*
+            simple: return input.stream().collect(partitioningBy(condition));
+             */
+            return input.stream().collect(toMap(
+                    condition::test,
+                    element -> new ArrayList<>(List.of(element)),
+                    (l1, l2) -> {
+                        l1.addAll(l2);
+                        return l1;
+                    }
+            ));
+        }
     }
 
     // =========================================================
