@@ -730,10 +730,15 @@ public class FunctionalCollectionsMasteryLab {
             // TODO 37:
             // Implement a generic method:
             // <T> Optional<T> findFirstMatching(List<T> input, Predicate<? super T> predicate)
+            Optional<String> firstShortWord = findFirstMatching(listOfWords, word -> word.length() < 6);
+            System.out.println("first short word: " + firstShortWord.orElse("none"));
 
             // TODO 38:
             // Implement a generic method:
             // <T> Map<T, Long> frequencyMap(List<T> input)
+                List<String> wordsWithDuplicates = List.of("java", "stream", "java", "lambda", "stream", "generics");
+                Map<String, Long> frequencyOfWords = frequencyMap(wordsWithDuplicates);
+                System.out.println("frequency of words: " + frequencyOfWords);
 
             // TODO 39:
             // Implement a generic method:
@@ -779,9 +784,18 @@ public class FunctionalCollectionsMasteryLab {
 
         // TODO 37 implementation here
         // static <T> Optional<T> findFirstMatching(...) { ... }
+        static <T> Optional<T> findFirstMatching(List<T> input, Predicate<? super T> condition) {
+            return input.stream().filter(condition).findFirst();
+        }
 
         // TODO 38 implementation here
         // static <T> Map<T, Long> frequencyMap(...) { ... }
+        static <T> Map<T, Long> frequencyMap(List<T> input ) {
+            return input.stream().collect(groupingBy(
+                    Function.identity(),
+                    counting()
+            ));
+        }
 
         // TODO 39 implementation here
         // static <T> List<T> mergeLists(...) { ... }
