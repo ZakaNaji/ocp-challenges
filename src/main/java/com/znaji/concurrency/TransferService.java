@@ -1,9 +1,47 @@
 package com.znaji.concurrency;
 
+import java.util.concurrent.TimeUnit;
+
 public class TransferService {
 
 
+    public boolean transferWithTimeout(TransferRequest request) throws InterruptedException {
+        validRequest(request);
 
+        Account fromAccount = request.getFromAccount();
+        Account toAccount = request.getToAccount();
+        long amount = request.getAmount();
+
+        fromAndToAccountMustBeDifferent(fromAccount, toAccount);
+        amountMustBePositive(amount);
+
+        System.out.println("trying to lock fromAccount: " + fromAccount.getId() + " by thread: " + Thread.currentThread().getName());
+        if (fromAccount.getLock().tryLock(100, TimeUnit.MILLISECONDS)) {
+            try {
+                transferDelay();
+                System.out.println("Lock acquired on fromAccount: " + fromAccount.getId() + " by thread: " + Thread.currentThread().getName());
+                System.out.println("trying to lock toAccount: " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+                if (toAccount.getLock().tryLock(100, TimeUnit.MILLISECONDS)) {
+                    try {
+                        System.out.println("Lock acquired on toAccount: " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+                        fromAccountMustHaveSufficientBalance(fromAccount, amount);
+                        transferFunds(fromAccount, amount, toAccount);
+                        return true;
+                    } finally {
+                        toAccount.getLock().unlock();
+                    }
+                } else {
+                    System.out.println("Could not acquire lock on toAccount: " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+                    return false;
+                }
+            } finally {
+                fromAccount.getLock().unlock();
+            }
+        } else {
+            System.out.println("Could not acquire lock on fromAccount: " + fromAccount.getId() + " by thread: " + Thread.currentThread().getName());
+            return false;
+        }
+    }
     public void transfer(TransferRequest request) {
         validRequest(request);
 

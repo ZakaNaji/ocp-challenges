@@ -9,14 +9,24 @@ public class DeadLockDemo {
 
         Thread thread1 = new Thread(() -> {
             TransferRequest request = new TransferRequest(account1, account2, 100);
-            transferService.transfer(request);
-            System.out.println("Transfer from Alice to Bob completed.");
+            boolean status = false;
+            try {
+                status = transferService.transferWithTimeout(request);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Transfer from Alice to Bob completed with status: " + status);
         }, "Alice-To-Bob");
 
         Thread thread2 = new Thread(() -> {
             TransferRequest request = new TransferRequest(account2, account1, 200);
-            transferService.transfer(request);
-            System.out.println("Transfer from Bob to Alice completed.");
+            boolean status = false;
+            try {
+                status = transferService.transferWithTimeout(request);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Transfer from Bob to Alice completed. Status: " + status);
         }, "Bob-To-Alice");
 
         thread1.start();
