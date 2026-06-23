@@ -3,6 +3,7 @@ package com.znaji.concurrency;
 public class TransferService {
 
 
+
     public void transfer(TransferRequest request) {
         validRequest(request);
 
@@ -12,20 +13,26 @@ public class TransferService {
 
         fromAndToAccountMustBeDifferent(fromAccount, toAccount);
         amountMustBePositive(amount);
-        fromAccount.getLock().lock();
-        System.out.println("Lock acquired on fromAccount: " + fromAccount.getId() + " by thread: " + Thread.currentThread().getName());
+
+        Account firstLock = fromAccount.getId() < toAccount.getId() ? fromAccount : toAccount;
+        Account secondLock = fromAccount.getId() < toAccount.getId() ? toAccount : fromAccount;
+
+        System.out.println("trying to lock fromAccount: " + firstLock.getId() + " by thread: " + Thread.currentThread().getName());
+        firstLock.getLock().lock();
+        System.out.println("Lock acquired on fromAccount: " + firstLock.getId() + " by thread: " + Thread.currentThread().getName());
         try {
             transferDelay(); // Simulate a delay to increase the chance of deadlock
-            toAccount.getLock().lock();
-            System.out.println("Lock acquired on toAccount: " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+            System.out.println("trying to lock toAccount: " + secondLock.getId() + " by thread: " + Thread.currentThread().getName());
+            secondLock.getLock().lock();
+            System.out.println("Lock acquired on toAccount: " + secondLock.getId() + " by thread: " + Thread.currentThread().getName());
             try {
                 fromAccountMustHaveSufficientBalance(fromAccount, amount);
                 transferFunds(fromAccount, amount, toAccount);
             } finally {
-                toAccount.getLock().unlock();
+                secondLock.getLock().unlock();
             }
         } finally {
-            fromAccount.getLock().unlock();
+            firstLock.getLock().unlock();
         }
     }
 
