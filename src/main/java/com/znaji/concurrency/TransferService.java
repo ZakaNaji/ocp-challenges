@@ -1,10 +1,38 @@
 package com.znaji.concurrency;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class TransferService {
 
 
+    public boolean transferWithRetry(TransferRequest request, int maxRetries)  {
+        validRequest(request);
+
+        Account fromAccount = request.getFromAccount();
+        Account toAccount = request.getToAccount();
+        long amount = request.getAmount();
+
+        fromAndToAccountMustBeDifferent(fromAccount, toAccount);
+        amountMustBePositive(amount);
+        long randomDelay = ThreadLocalRandom.current().nextLong(50, 200); // Random delay between 50ms and 200ms
+
+       try {
+           while (maxRetries > 0) {
+               System.out.println("Attempting transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+               if (transferWithTimeout(request)) {
+                   return true;
+               }
+               Thread.sleep(randomDelay); // Wait before retrying
+               maxRetries--;
+               System.out.println("Retrying transfer. Remaining attempts: " + maxRetries);
+           }
+       } catch (InterruptedException e) {
+           Thread.currentThread().interrupt();
+           System.out.println("Transfer interrupted for transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+       }
+        return false; // Transfer failed after max retries
+    }
     public boolean transferWithTimeout(TransferRequest request) throws InterruptedException {
         validRequest(request);
 
