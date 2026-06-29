@@ -1,4 +1,4 @@
-package com.znaji.concurrency;
+package com.znaji.concurrency.account.transfer.simulator;
 
 public class TransferRequest {
     private final Account fromAccount;

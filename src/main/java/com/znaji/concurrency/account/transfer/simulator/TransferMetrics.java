@@ -1,4 +1,4 @@
-package com.znaji.concurrency;
+package com.znaji.concurrency.account.transfer.simulator;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

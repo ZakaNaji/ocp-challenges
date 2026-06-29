@@ -1,6 +1,5 @@
-package com.znaji.concurrency;
+package com.znaji.concurrency.account.transfer.simulator;
 
-import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 
 public class Account {
