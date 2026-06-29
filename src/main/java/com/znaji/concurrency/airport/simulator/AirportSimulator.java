@@ -5,6 +5,10 @@ public class AirportSimulator {
 
         AirportTaskQueue queue = new AirportTaskQueue(10);
 
+        deterministicProducerConsumerExample(queue);
+    }
+
+    private static void deterministicProducerConsumerExample(AirportTaskQueue queue) throws InterruptedException {
         AirportTask normalA = new AirportTask("A", TaskType.BOARDING, TaskPriority.NORMAL, "F1");
         AirportTask normalB = new AirportTask("B", TaskType.BAGGAGE, TaskPriority.NORMAL, "F2");
         AirportTask urgentC = new AirportTask("C", TaskType.SECURITY, TaskPriority.URGENT, "F3");
