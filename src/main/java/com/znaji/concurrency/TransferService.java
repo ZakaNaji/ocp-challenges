@@ -5,8 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 public class TransferService {
 
+    private final TransferMetrics metrics = new TransferMetrics();
 
-    public boolean transferWithRetry(TransferRequest request, int maxRetries)  {
+
+    public boolean transferWithRetry(TransferRequest request, int maxRetries) {
         validRequest(request);
 
         Account fromAccount = request.getFromAccount();
@@ -15,24 +17,34 @@ public class TransferService {
 
         fromAndToAccountMustBeDifferent(fromAccount, toAccount);
         amountMustBePositive(amount);
-        long randomDelay = ThreadLocalRandom.current().nextLong(50, 200); // Random delay between 50ms and 200ms
 
-       try {
-           while (maxRetries > 0) {
-               System.out.println("Attempting transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
-               if (transferWithTimeout(request)) {
-                   return true;
-               }
-               Thread.sleep(randomDelay); // Wait before retrying
-               maxRetries--;
-               System.out.println("Retrying transfer. Remaining attempts: " + maxRetries);
-           }
-       } catch (InterruptedException e) {
-           Thread.currentThread().interrupt();
-           System.out.println("Transfer interrupted for transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
-       }
+        try {
+            while (maxRetries > 0) {
+                System.out.println("Attempting transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+                if (transferWithTimeout(request)) {
+                    metrics.incrementSuccessfulTransfers();
+                    return true;
+                }
+                long randomDelay = ThreadLocalRandom.current().nextLong(50, 200); // Random delay between 50ms and 200ms
+                Thread.sleep(randomDelay); // Wait before retrying
+                maxRetries--;
+                metrics.incrementTotalRetries();
+                System.out.println("Retrying transfer. Remaining attempts: " + maxRetries);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Transfer interrupted for transfer from " + fromAccount.getId() + " to " + toAccount.getId() + " by thread: " + Thread.currentThread().getName());
+        }
+        metrics.incrementFailedTransfers();
         return false; // Transfer failed after max retries
     }
+
+    public void printMetrics() {
+        System.out.println("Successful Transfers: " + metrics.getSuccessfulTransfers());
+        System.out.println("Failed Transfers: " + metrics.getFailedTransfers());
+        System.out.println("Total Retries: " + metrics.getTotalRetries());
+    }
+
     public boolean transferWithTimeout(TransferRequest request) throws InterruptedException {
         validRequest(request);
 
@@ -70,6 +82,7 @@ public class TransferService {
             return false;
         }
     }
+
     public void transfer(TransferRequest request) {
         validRequest(request);
 
