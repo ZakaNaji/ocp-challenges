@@ -3,8 +3,22 @@ package com.znaji.concurrency.airport.simulator;
 public class AirportSimulator {
     public static void main(String[] args) throws InterruptedException {
 
-        AirportTaskQueue taskQueue = new AirportTaskQueue(10);
+        AirportTaskQueue queue = new AirportTaskQueue(10);
 
+        AirportTask normalA = new AirportTask("A", TaskType.BOARDING, TaskPriority.NORMAL, "F1");
+        AirportTask normalB = new AirportTask("B", TaskType.BAGGAGE, TaskPriority.NORMAL, "F2");
+        AirportTask urgentC = new AirportTask("C", TaskType.SECURITY, TaskPriority.URGENT, "F3");
+
+        queue.submitTask(normalA);
+        queue.submitTask(normalB);
+        queue.submitTask(urgentC);
+
+        System.out.println(queue.takeTask().id()); // C
+        System.out.println(queue.takeTask().id()); // A
+        System.out.println(queue.takeTask().id()); // B
+    }
+
+    private static void concurrentProducerConsumerExample(AirportTaskQueue taskQueue) throws InterruptedException {
         Thread producerThread = Thread.ofVirtual().start(() -> {
             for (int i = 0; i < 20; i++) {
                 AirportTask task = new AirportTask(
