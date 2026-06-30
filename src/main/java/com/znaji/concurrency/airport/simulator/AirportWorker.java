@@ -1,6 +1,6 @@
 package com.znaji.concurrency.airport.simulator;
 
-public class AirportWorker implements Runnable{
+public class AirportWorker implements Runnable {
 
     private final String workerId;
     private final AirportTaskQueue taskQueue;
@@ -24,13 +24,9 @@ public class AirportWorker implements Runnable{
         System.out.println("Worker " + workerId + " has stopped.");
     }
 
-    private void processTask(AirportTask task) {
+    private void processTask(AirportTask task) throws InterruptedException {
         System.out.println("Worker " + workerId + " is processing task: " + task);
         // Simulate task processing time
-        try {
-            Thread.sleep(100); // Simulate time taken to process the task
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        Thread.sleep(100); // Simulate time taken to process the task
     }
 }
