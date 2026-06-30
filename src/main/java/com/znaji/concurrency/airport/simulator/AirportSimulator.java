@@ -5,7 +5,32 @@ public class AirportSimulator {
 
         AirportTaskQueue queue = new AirportTaskQueue(10);
 
-        deterministicProducerConsumerExample(queue);
+        Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue));
+        Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue));
+        Thread worker3 = Thread.ofVirtual().start(new AirportWorker("Worker-3", queue));
+
+        // add tasks to the queue
+        for (int i = 0; i < 20; i++) {
+            AirportTask task = new AirportTask(
+                    "task-" + i,
+                    TaskType.values()[i % TaskType.values().length],
+                    TaskPriority.values()[i % TaskPriority.values().length],
+                    "flight-" + (i % 5)
+            );
+            queue.submitTask(task);
+        }
+
+        // Wait for a while to let workers process tasks
+        Thread.sleep(5000);
+
+        // Interrupt workers to stop them
+        worker1.interrupt();
+        worker2.interrupt();
+        worker3.interrupt();
+
+        worker1.join();
+        worker2.join();
+        worker3.join();
     }
 
     private static void deterministicProducerConsumerExample(AirportTaskQueue queue) throws InterruptedException {
