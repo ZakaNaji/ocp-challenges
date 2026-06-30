@@ -4,11 +4,11 @@ public class AirportSimulator {
     public static void main(String[] args) throws InterruptedException {
 
         AirportTaskQueue queue = new AirportTaskQueue(10);
+        AirportMetrics metrics = new AirportMetrics();
 
-        Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue));
-        Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue));
-        Thread worker3 = Thread.ofVirtual().start(new AirportWorker("Worker-3", queue));
-
+        Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue, metrics));
+        Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue, metrics));
+        Thread worker3 = Thread.ofVirtual().start(new AirportWorker("Worker-3", queue, metrics));
         // add tasks to the queue
         for (int i = 0; i < 20; i++) {
             AirportTask task = new AirportTask(
@@ -31,6 +31,9 @@ public class AirportSimulator {
         worker1.join();
         worker2.join();
         worker3.join();
+
+        // Print metrics
+        System.out.println(metrics.snapshot());
     }
 
     private static void deterministicProducerConsumerExample(AirportTaskQueue queue) throws InterruptedException {
