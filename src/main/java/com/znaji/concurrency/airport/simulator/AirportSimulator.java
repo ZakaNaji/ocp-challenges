@@ -1,14 +1,32 @@
 package com.znaji.concurrency.airport.simulator;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class AirportSimulator {
     public static void main(String[] args) throws InterruptedException {
 
         AirportTaskQueue queue = new AirportTaskQueue(10);
         AirportMetrics metrics = new AirportMetrics();
+
         AirportEventPublisher eventPublisher = new AirportEventPublisher();
-        eventPublisher.register((task, workerId) ->
-                System.out.println("[EVENT] " + workerId + " processed " + task.id())
-        );
+        AirportEventListener lateListener = (task, workerId) ->
+                System.out.println("[LATE] saw task " + task.id());
+
+        AirportEventListener registeringListener = new AirportEventListener() {
+            private AtomicBoolean registered = new AtomicBoolean(false);
+
+            @Override
+            public void onTaskProcessed(AirportTask task, String workerId) {
+                System.out.println("[REGISTERING] saw task " + task.id());
+
+                if (registered.compareAndSet(false, true)) {
+                    eventPublisher.register(lateListener);
+                    System.out.println("[REGISTERING] late listener registered");
+                }
+            }
+        };
+
+        eventPublisher.register(registeringListener);
 
         Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue, metrics, eventPublisher));
         Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue, metrics, eventPublisher));

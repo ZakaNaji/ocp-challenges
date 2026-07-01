@@ -25,7 +25,7 @@ public class AirportWorker implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        System.out.println("Worker " + workerId + " has stopped.");
+        System.out.println(workerId + " has stopped.");
     }
 
     private void processTask(AirportTask task) throws InterruptedException {
