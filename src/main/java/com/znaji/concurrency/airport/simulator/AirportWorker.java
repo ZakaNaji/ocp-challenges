@@ -5,11 +5,13 @@ public class AirportWorker implements Runnable {
     private final String workerId;
     private final AirportTaskQueue taskQueue;
     private final AirportMetrics metrics;
+    private final AirportEventPublisher eventPublisher;
 
-    public AirportWorker(String workerId, AirportTaskQueue taskQueue, AirportMetrics metrics) {
+    public AirportWorker(String workerId, AirportTaskQueue taskQueue, AirportMetrics metrics, AirportEventPublisher eventPublisher) {
         this.workerId = workerId;
         this.taskQueue = taskQueue;
         this.metrics = metrics;
+        this.eventPublisher = eventPublisher;
     }
 
 
@@ -33,5 +35,8 @@ public class AirportWorker implements Runnable {
 
         // Update metrics after processing the task
         metrics.taskProcessed(task);
+
+        // Notify listeners that a task has been processed
+        eventPublisher.publishTaskProcessed(task, workerId);
     }
 }

@@ -5,10 +5,14 @@ public class AirportSimulator {
 
         AirportTaskQueue queue = new AirportTaskQueue(10);
         AirportMetrics metrics = new AirportMetrics();
+        AirportEventPublisher eventPublisher = new AirportEventPublisher();
+        eventPublisher.register((task, workerId) ->
+                System.out.println("[EVENT] " + workerId + " processed " + task.id())
+        );
 
-        Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue, metrics));
-        Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue, metrics));
-        Thread worker3 = Thread.ofVirtual().start(new AirportWorker("Worker-3", queue, metrics));
+        Thread worker1 = Thread.ofVirtual().start(new AirportWorker("Worker-1", queue, metrics, eventPublisher));
+        Thread worker2 = Thread.ofVirtual().start(new AirportWorker("Worker-2", queue, metrics, eventPublisher));
+        Thread worker3 = Thread.ofVirtual().start(new AirportWorker("Worker-3", queue, metrics, eventPublisher));
         // add tasks to the queue
         for (int i = 0; i < 20; i++) {
             AirportTask task = new AirportTask(
